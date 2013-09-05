@@ -243,15 +243,33 @@ class CastToType {
 	 * @return	array|null
 	 */
 	static function _array( $value, $allow_empty = true ) {
-		if ( is_array( $value ) !== true ) {
-			$value = (array) $value;
-		}
+		if( version_compare( PHP_VERSION, '5.0.0', '>=' ) === true ) {
+			try{
+				if ( is_array( $value ) !== true ) {
+					$value = (array) $value;
+				}
 
-		if ( count( $value ) > 0 || $allow_empty === true ) {
-			return $value;
-		}
+				if ( count( $value ) > 0 || $allow_empty === true ) {
+					return $value;
+				}
+				else {
+					return null;
+				}
+			}
+			catch( Exception $e ) {
+				trigger_error( $e->getMessage(), E_USER_WARNING );
+			}
 		else {
-			return null;
+			if ( is_array( $value ) !== true ) {
+				$value = (array) $value;
+			}
+
+			if ( count( $value ) > 0 || $allow_empty === true ) {
+				return $value;
+			}
+			else {
+				return null;
+			}
 		}
 	}
 	
