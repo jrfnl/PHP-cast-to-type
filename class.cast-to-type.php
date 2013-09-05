@@ -72,7 +72,12 @@ class CastToType {
 
 	
 
-	
+	/**
+	 * Cast a value to bool
+	 *
+	 * @param	mixed	$value
+	 * @return	bool|null
+	 */
 	static function _bool( $value ) {
 		$true  = array(
 			'1',
@@ -124,7 +129,13 @@ class CastToType {
 		}
 	}
 	
-	static function int( $value ) {
+	/**
+	 * Cast a value to integer
+	 *
+	 * @param	mixed	$value
+	 * @return	int|null
+	 */
+	static function _int( $value ) {
 	
 		if ( is_int( $value ) ) {
 			return $value;
@@ -165,6 +176,12 @@ class CastToType {
 		}
 	}
 	
+	/**
+	 * Cast a value to float
+	 *
+	 * @param	mixed	$value
+	 * @return	float|null
+	 */
 	static function _float( $value ) {
 		if( is_float( $value ) ) {
 			return $value;
@@ -186,6 +203,14 @@ class CastToType {
 	}
 	
 	
+	/**
+	 * Cast a value to string
+	 *
+	 * @param	mixed	$value
+	 * @param	bool	$implode_array
+	 * @param	bool	$allow_empty
+	 * @return	string|null
+	 */
 	static function _string( $value, $implode_array = false, $allow_empty = true ) {
 		if ( is_string( $value ) && ( $value !== '' || $allow_empty === true ) ) {
 			return $value;
@@ -210,6 +235,13 @@ class CastToType {
 	}
 	
 	
+	/**
+	 * Cast a value to array
+	 *
+	 * @param	mixed	$value
+	 * @param	bool	$allow_empty
+	 * @return	array|null
+	 */
 	static function _array( $value, $allow_empty = true ) {
 		if ( is_array( $value ) !== true ) {
 			$value = (array) $value;
@@ -223,6 +255,13 @@ class CastToType {
 		}
 	}
 	
+	
+	/**
+	 * Cast a value to object
+	 *
+	 * @param	mixed	$value
+	 * @return	object|null
+	 */
 	static function _object( $value ) {
 		if ( is_object( $value ) !== true ) {
 			$value = (object) $value;
@@ -231,7 +270,12 @@ class CastToType {
 	}
 	
 	
-	// for completeness
+	/**
+	 * Cast a value to null (for completeness)
+	 *
+	 * @param	mixed	$value
+	 * @return	null
+	 */
 	static function _null( $value ) {
 		return null;
 	}
