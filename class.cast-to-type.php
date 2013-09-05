@@ -369,6 +369,10 @@ if ( !class_exists( 'CastToType' ) ) {
 		as for error checking i did not add any because would probably
 		make it take longer to run add em if you please
 		*/
+		/**
+		 *
+		 * @static
+		 */
 		static function mul_dim_implode( $array, $start_glue, $end_glue, $with_keys = false, $start_key_glue = null, $end_key_glue = null, $level = 0 ) {
 		
 			foreach ( $array as $key => $value ) {
