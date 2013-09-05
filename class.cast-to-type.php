@@ -6,6 +6,16 @@
  */
 class CastToType {
 	
+	/**
+	 * Cast a value to specific variable type
+	 *
+	 * @param	mixed	$value
+	 * @param	string	$type
+	 * @param	bool	$allow_empty
+	 * @param	bool	$implode_array
+	 * @param	bool	$explode_string
+	 * @return	mixed|null
+	 */
 	function __construct( $value, $type, $allow_empty = true, $implode_array = false, $explode_string = false ) {
 
 		// Have the expected variables been passed ?
