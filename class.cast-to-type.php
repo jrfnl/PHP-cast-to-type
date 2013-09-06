@@ -150,7 +150,7 @@ if ( !class_exists( 'CastToType' ) ) {
 			else if ( is_int( $value ) && ( $value === 0 || $value === 1 ) ) {
 				return (bool) $value;
 			}
-			else if ( is_float( $value ) && ( $value === (float) 0 || $value === (float) 1 ) ) {
+			else if ( ( is_float( $value ) && !is_nan( $value ) ) && ( $value === (float) 0 || $value === (float) 1 ) ) {
 				return (bool) $value;
 			}
 			else if ( is_string( $value ) ) {
@@ -265,7 +265,7 @@ if ( !class_exists( 'CastToType' ) ) {
 					return null;
 				}
 			}
-			else if ( is_numeric( $value ) && ( floatval( $value ) == $value ) ) {
+			else if ( is_numeric( $value ) && ( floatval( $value ) == trim( $value ) ) ) {
 				return floatval( $value );
 			}
 			else if ( $array2null === false && is_array( $value ) ) {
@@ -310,6 +310,9 @@ if ( !class_exists( 'CastToType' ) ) {
 					return null;
 				}
 			}
+			else if ( is_object( $value ) && method_exists( $value, '__toString' ) ) {
+				return (string) $value;
+			}
 			else {
 				return null;
 			}
@@ -332,7 +335,7 @@ if ( !class_exists( 'CastToType' ) ) {
 			if ( version_compare( PHP_VERSION, '5.0.0', '>=' ) === true ) {
 				try{
 					if ( is_array( $value ) !== true ) {
-						$value = (array) $value;
+						settype( $value, 'array' );
 					}
 	
 					if ( count( $value ) > 0 || $allow_empty === true ) {
@@ -386,7 +389,7 @@ if ( !class_exists( 'CastToType' ) ) {
 				}
 				else {
 					// PHP4
-					$methods = get_class_methods( $value );
+					$methods    = get_class_methods( $value );
 					$properties = get_object_vars( $value );
 					if ( ( is_null( $methods ) || count( get_class_methods( $value ) ) === 0 ) && ( is_null( $properties ) || count( get_class_methods( $properties ) ) === 0 ) ) {
 						// No methods or properties found
