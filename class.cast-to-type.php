@@ -279,7 +279,8 @@ if ( !class_exists( 'CastToType' ) ) {
 			}
 			else if ( is_object( $value ) && get_class( $value ) === 'SplFloat' ) {
 				if ( (float) $value == $value ) {
-					return (float) $value;
+					settype( $value, 'float' );
+					return $value;
 				}
 				else {
 					return null;
