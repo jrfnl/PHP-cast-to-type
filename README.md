@@ -34,14 +34,15 @@ $value = CastToType::_int( $value, $array2null = false ); // array( 123 )
 
 ###Available methods:
 
+All methods are static.
+
 - `CastToType::cast( $value, $type, $allow_empty = true, $array2null = true, $implode_array = false, $explode_string = false );`
 
-- `CastToType::_bool( $value, $array2null = true, $allow_empty = true );`
-- `CastToType::_int( $value, $array2null = true, $allow_empty = true );`
-- `CastToType::_float( $value, $array2null = true, $allow_empty = true );`
+- `CastToType::_bool( $value, $allow_empty = true, $array2null = true );`
+- `CastToType::_int( $value, $allow_empty = true, $array2null = true );`
+- `CastToType::_float( $value, $allow_empty = true, $array2null = true );`
 - `CastToType::_string( $value, $allow_empty = true, $array2null = true, $implode_array = false );`
 - `CastToType::_array( $value, $allow_empty = true );`
-- `CastToType::_object( $value );`
+- `CastToType::_object( $value, $allow_empty = true );`
 - `CastToType::_null( $value );`
 
-All methods are static.

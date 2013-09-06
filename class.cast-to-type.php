@@ -40,7 +40,7 @@ if ( !class_exists( 'CastToType' ) ) {
 		 * @param	mixed	$value			Value to cast
 		 * @param	string	$type			Type to cast to
 		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings, empty arrays, empty objects
-		 *									If false, null will be returned
+		 *									If false, null will be returned instead of the empty string/array/object
 		 *									Defaults to true
 		 * @param	bool	$array2null		(Optional) Whether to return null for arrays when casting to
 		 *									bool, int, float, num or string.
@@ -71,16 +71,16 @@ if ( !class_exists( 'CastToType' ) ) {
 			switch ( $type ) {
 				case 'bool':
 				case 'boolean':
-					return self::_bool( $value, $array2null, $allow_empty );
+					return self::_bool( $value, $allow_empty, $array2null );
 					break;
 		
 				case 'integer':
 				case 'int':
-					return self::_int( $value, $array2null, $allow_empty );
+					return self::_int( $value, $allow_empty, $array2null );
 					break;
 		
 				case 'float':
-					return self::_float( $value, $array2null, $allow_empty );
+					return self::_float( $value, $allow_empty, $array2null );
 					break;
 		
 				case 'num':
@@ -102,7 +102,7 @@ if ( !class_exists( 'CastToType' ) ) {
 					break;
 		
 				case 'object':
-					return self::_object( $value );
+					return self::_object( $value, $allow_empty );
 					break;
 	
 				case 'null':
@@ -121,13 +121,13 @@ if ( !class_exists( 'CastToType' ) ) {
 		 * @static
 		 *
 		 * @param	mixed	$value			Value to cast
-		 * @param	bool	$array2null		(Optional) Whether to return null for an array or to cast the
-		 *									individual values within the array to the chosen type
 		 * @param	bool	$allow_empty	(Optional) Whether to allow empty arrays. Only has effect
 		 *									when $array2null = false
+		 * @param	bool	$array2null		(Optional) Whether to return null for an array or to cast the
+		 *									individual values within the array to the chosen type
 		 * @return	bool|null
 		 */
-		static function _bool( $value, $array2null = true, $allow_empty = true ) {
+		static function _bool( $value, $allow_empty = true, $array2null = true ) {
 			$true  = array(
 				'1',
 				'true', 'True', 'TRUE',
@@ -191,13 +191,13 @@ if ( !class_exists( 'CastToType' ) ) {
 		 * @static
 		 *
 		 * @param	mixed	$value			Value to cast
-		 * @param	bool	$array2null		(Optional) Whether to return null for an array or to cast the
-		 *									individual values within the array to the chosen type
 		 * @param	bool	$allow_empty	(Optional) Whether to allow empty arrays. Only has effect
 		 *									when $array2null = false
+		 * @param	bool	$array2null		(Optional) Whether to return null for an array or to cast the
+		 *									individual values within the array to the chosen type
 		 * @return	int|null
 		 */
-		static function _int( $value, $array2null = true, $allow_empty = true ) {
+		static function _int( $value, $allow_empty = true, $array2null = true ) {
 		
 			if ( is_int( $value ) ) {
 				return $value;
@@ -247,13 +247,13 @@ if ( !class_exists( 'CastToType' ) ) {
 		 * @static
 		 *
 		 * @param	mixed	$value			Value to cast
-		 * @param	bool	$array2null		(Optional) Whether to return null for an array or to cast the
-		 *									individual values within the array to the chosen type
 		 * @param	bool	$allow_empty	(Optional) Whether to allow empty arrays. Only has effect
 		 *									when $array2null = false
+		 * @param	bool	$array2null		(Optional) Whether to return null for an array or to cast the
+		 *									individual values within the array to the chosen type
 		 * @return	float|null
 		 */
-		static function _float( $value, $array2null = true, $allow_empty = true ) {
+		static function _float( $value, $allow_empty = true, $array2null = true ) {
 			if ( is_float( $value ) ) {
 				return $value;
 			}
@@ -436,12 +436,7 @@ if ( !class_exists( 'CastToType' ) ) {
 				}
 				else {
 					foreach ( $value as $k => $v ) {
-						if ( $method !== '_string' ) {
-							$value[$k] = self::$method( $value, false, $allow_empty );
-						}
-						else {
-							$value[$k] = self::$method( $value, $allow_empty, false );
-						}
+						$value[$k] = self::$method( $value, $allow_empty, false );
 					}
 					return $value;
 				}
