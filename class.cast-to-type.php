@@ -39,7 +39,7 @@ if ( !class_exists( 'CastToType' ) ) {
 		 *
 		 * @param	mixed	$value			Value to cast
 		 * @param	string	$type			Type to cast to
-		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings and empty arrays
+		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings, empty arrays, empty objects
 		 *									If false, null will be returned
 		 *									Defaults to true
 		 * @param	bool	$array2null		(Optional) Whether to return null for arrays when casting to
@@ -147,7 +147,10 @@ if ( !class_exists( 'CastToType' ) ) {
 			if ( is_bool( $value ) ) {
 				return $value;
 			}
-			else if ( ( is_int( $value ) || is_float( $value ) ) && ( $value === 0 || $value === 1 ) ) {
+			else if ( is_int( $value ) && ( $value === 0 || $value === 1 ) ) {
+				return (bool) $value;
+			}
+			else if ( is_float( $value ) && ( $value === (float) 0 || $value === (float) 1 ) ) {
 				return (bool) $value;
 			}
 			else if ( is_string( $value ) ) {
@@ -200,7 +203,7 @@ if ( !class_exists( 'CastToType' ) ) {
 				return $value;
 			}
 			else if ( is_float( $value ) ) {
-				if ( (int) $value == $value ) {
+				if ( (int) $value == $value && !is_nan( $value ) ) {
 					return ( int) $value;
 				}
 				else {
@@ -280,7 +283,7 @@ if ( !class_exists( 'CastToType' ) ) {
 		 * @static
 		 *
 		 * @param	mixed	$value			Value to cast
-		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings/arrays.
+		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings/arrays/objects.
 		 * @param	bool	$array2null		(Optional) Whether to return null for an array or to cast the
 		 *									individual values within the array to the chosen type
 		 * @param	bool	$implode_array
@@ -290,7 +293,7 @@ if ( !class_exists( 'CastToType' ) ) {
 			if ( is_string( $value ) && ( $value !== '' || $allow_empty === true ) ) {
 				return $value;
 			}
-			else if ( is_int( $value ) ) {
+			else if ( is_int( $value ) || is_float( $value ) ) {
 				return strval( $value );
 			}
 			else if ( $array2null === false && is_array( $value ) ) {
@@ -316,10 +319,13 @@ if ( !class_exists( 'CastToType' ) ) {
 		/**
 		 * Cast a value to array
 		 *
+		 * @todo Determine what the desired outcome should be for SplType Objects
+
+		 *
 		 * @static
 		 *
 		 * @param	mixed	$value			Value to cast
-		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings/arrays.
+		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings/arrays/objects.
 		 * @return	array|null
 		 */
 		static function _array( $value, $allow_empty = true ) {
@@ -361,15 +367,37 @@ if ( !class_exists( 'CastToType' ) ) {
 		 * @static
 		 *
 		 * @param	mixed	$value			Value to cast
+		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings/arrays/objects.
 		 * @return	object|null
 		 */
-		static function _object( $value ) {
+		static function _object( $value, $allow_empty = true ) {
+			
 			if ( is_object( $value ) !== true ) {
 				$value = (object) $value;
 			}
+
+			if ( $allow_empty === false ) {
+				if ( version_compare( PHP_VERSION, '5.0.0', '>=' ) === true ) {
+					$obj = new ReflectionObject( $value );
+					if ( ( count( $obj->getMethods() ) + count( $obj->getProperties() ) + count( $obj->getConstants() ) ) === 0 ) {
+						// No methods, properties or constants found
+						$value = null;
+					}
+				}
+				else {
+					// PHP4
+					$methods = get_class_methods( $value );
+					$properties = get_object_vars( $value );
+					if ( ( is_null( $methods ) || count( get_class_methods( $value ) ) === 0 ) && ( is_null( $properties ) || count( get_class_methods( $properties ) ) === 0 ) ) {
+						// No methods or properties found
+						$value = null;
+					}
+				}
+			}
+
 			return $value;
 		}
-		
+
 		
 		/**
 		 * Cast a value to null (for completeness)
