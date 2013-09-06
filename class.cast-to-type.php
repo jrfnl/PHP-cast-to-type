@@ -302,7 +302,7 @@ if ( !class_exists( 'CastToType' ) ) {
 			else if ( $implode_array === true && ( is_array( $value ) && count( $value ) > 0 ) ) {
 				return self::mul_dim_implode( $value, ' *{', '}* ', true,	' [', '] => ', $level = 0 );
 			}
-			else if ( is_object( $value ) && get_class( $value ) === 'SplString' ) {
+			else if ( is_object( $value ) && get_parent_class( $value ) === 'SplType' ) {
 				if ( (string) $value == $value ) {
 					return (string) $value;
 				}
@@ -321,9 +321,6 @@ if ( !class_exists( 'CastToType' ) ) {
 		
 		/**
 		 * Cast a value to array
-		 *
-		 * @todo Determine what the desired outcome should be for SplType Objects
-
 		 *
 		 * @static
 		 *
