@@ -246,7 +246,7 @@ if ( !class_exists( 'CastToType' ) ) {
 					return null;
 				}
 			}
-			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplFloat' || get_class( $value ) === 'SplString' ) {
+			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplFloat' || get_class( $value ) === 'SplString' ) ) {
 				switch( get_class( $value ) ) {
 					case 'SplBool':
 						return self::_int( (bool) $value );
@@ -285,7 +285,7 @@ if ( !class_exists( 'CastToType' ) ) {
 					return null;
 				}
 			}
-			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplInt' || get_class( $value ) === 'SplString' ) {
+			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplInt' || get_class( $value ) === 'SplString' ) ) {
 				switch( get_class( $value ) ) {
 					case 'SplBool':
 						return self::_float( (bool) $value );
