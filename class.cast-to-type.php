@@ -179,6 +179,16 @@ if ( !class_exists( 'CastToType' ) ) {
 					return null;
 				}
 			}
+			else if ( is_object( $value ) && get_parent_class( $value ) === 'SplType' ) {
+				switch( get_class( $value ) ) {
+					case 'SplInt':
+						return self::_bool( (int) $value );
+					case 'SplFloat':
+						return self::_bool( (float) $value );
+					case 'SplString':
+						return self::_bool( (string) $value );
+				}
+			}
 			else {
 				return null;
 			}
@@ -236,6 +246,16 @@ if ( !class_exists( 'CastToType' ) ) {
 					return null;
 				}
 			}
+			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplFloat' || get_class( $value ) === 'SplString' ) {
+				switch( get_class( $value ) ) {
+					case 'SplBool':
+						return self::_int( (bool) $value );
+					case 'SplFloat':
+						return self::_int( (float) $value );
+					case 'SplString':
+						return self::_int( (string) $value );
+				}
+			}
 			else {
 				return null;
 			}
@@ -263,6 +283,16 @@ if ( !class_exists( 'CastToType' ) ) {
 				}
 				else {
 					return null;
+				}
+			}
+			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplInt' || get_class( $value ) === 'SplString' ) {
+				switch( get_class( $value ) ) {
+					case 'SplBool':
+						return self::_float( (bool) $value );
+					case 'SplInt':
+						return self::_float( (int) $value );
+					case 'SplString':
+						return self::_float( (string) $value );
 				}
 			}
 			else if ( is_numeric( $value ) && ( floatval( $value ) == trim( $value ) ) ) {
