@@ -278,8 +278,12 @@ if ( !class_exists( 'CastToType' ) ) {
 				return $value;
 			}
 			else if ( is_object( $value ) && get_class( $value ) === 'SplFloat' ) {
-				settype( $value, 'float' );
-				return $value;
+				if ( (float) $value == $value ) {
+					return (float) $value;
+				}
+				else {
+					return null;
+				}
 			}
 			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplInt' || get_class( $value ) === 'SplString' ) ) {
 				switch( get_class( $value ) ) {
