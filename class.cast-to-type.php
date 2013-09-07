@@ -401,8 +401,20 @@ if ( !class_exists( 'CastToType' ) ) {
 		 * @return	object|null
 		 */
 		static function _object( $value, $allow_empty = true ) {
-			
-			if ( is_object( $value ) !== true ) {
+			if( is_array( $value ) === true ) {
+				$has_num_keys = false;
+				foreach( $value as $k => $v ) {
+					if( is_int( $k ) ) {
+						$has_num_keys = true;
+						break;
+					}
+				}
+				if( $has_num_keys === true ) {
+					$value = array( 'array' => $value );
+				}
+				$value = (object) $value;
+			}
+			else if ( is_object( $value ) !== true ) {
 				$value = (object) $value;
 			}
 
