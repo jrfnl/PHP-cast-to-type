@@ -394,6 +394,11 @@ if ( !class_exists( 'CastToType' ) ) {
 		/**
 		 * Cast a value to object
 		 *
+		 * Please note: in a normal array to object cast, array values with numerical keys are 'lost'.
+		 * This method checks whether the array contains numerical keys, if it doesn't it will do a
+		 * normal array to object cast. If it does, it will wrap the array in an array with the
+		 * key value 'array' before casting.
+		 *
 		 * @static
 		 *
 		 * @param	mixed	$value			Value to cast
@@ -478,7 +483,7 @@ if ( !class_exists( 'CastToType' ) ) {
 				}
 				else {
 					foreach ( $value as $k => $v ) {
-						$value[$k] = self::$method( $value, $allow_empty, false );
+						$value[$k] = self::$method( $v, $allow_empty, false );
 					}
 					return $value;
 				}
