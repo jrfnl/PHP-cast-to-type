@@ -39,21 +39,18 @@ if ( !class_exists( 'CastToType' ) ) {
 		 *
 		 * @param	mixed	$value			Value to cast
 		 * @param	string	$type			Type to cast to
-		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings, empty arrays, empty objects
-		 *									If false, null will be returned instead of the empty string/array/object
-		 *									Defaults to true
 		 * @param	bool	$array2null		(Optional) Whether to return null for arrays when casting to
 		 *									bool, int, float, num or string.
 		 *									If false, the individual values held in the array will recursively
 		 *									be cast to the specified type.
 		 *									Defaults to true
-		 * @param	bool	$implode_array	(Optional) Whether to implode arrays when cast to string
-		 *									This variable is disregarded if $array2null = false
-		 * @param	bool	$explode_string	(Optional) Whether to explode a string to individual words when cast to array
+		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings, empty arrays, empty objects
+		 *									If false, null will be returned instead of the empty string/array/object
+		 *									Defaults to true
 		 * @return	mixed|null
 		 */
-		function cast( $value, $type, $allow_empty = true, $array2null = true, $implode_array = false, $explode_string = false ) {
-	
+		function cast( $value, $type, $array2null = true, $allow_empty = true ) {
+
 			// Have the expected variables been passed ?
 			if ( isset( $value ) === false || isset( $type ) === false ) {
 				return null;
@@ -71,16 +68,16 @@ if ( !class_exists( 'CastToType' ) ) {
 			switch ( $type ) {
 				case 'bool':
 				case 'boolean':
-					return self::_bool( $value, $allow_empty, $array2null );
+					return self::_bool( $value, $array2null, $allow_empty );
 					break;
 		
 				case 'integer':
 				case 'int':
-					return self::_int( $value, $allow_empty, $array2null );
+					return self::_int( $value, $array2null, $allow_empty );
 					break;
 		
 				case 'float':
-					return self::_float( $value, $allow_empty, $array2null );
+					return self::_float( $value, $array2null, $allow_empty );
 					break;
 		
 				case 'num':
@@ -94,7 +91,7 @@ if ( !class_exists( 'CastToType' ) ) {
 					break;
 		
 				case 'string':
-					return self::_string( $value, $allow_empty, $array2null, $implode_array );
+					return self::_string( $value, $array2null, $allow_empty );
 					break;
 		
 				case 'array':
@@ -121,13 +118,13 @@ if ( !class_exists( 'CastToType' ) ) {
 		 * @static
 		 *
 		 * @param	mixed	$value			Value to cast
-		 * @param	bool	$allow_empty	(Optional) Whether to allow empty arrays. Only has effect
-		 *									when $array2null = false
 		 * @param	bool	$array2null		(Optional) Whether to return null for an array or to cast the
 		 *									individual values within the array to the chosen type
+		 * @param	bool	$allow_empty	(Optional) Whether to allow empty arrays. Only has effect
+		 *									when $array2null = false
 		 * @return	bool|null
 		 */
-		static function _bool( $value, $allow_empty = true, $array2null = true ) {
+		static function _bool( $value, $array2null = true, $allow_empty = true ) {
 			$true  = array(
 				'1',
 				'true', 'True', 'TRUE',
@@ -182,11 +179,11 @@ if ( !class_exists( 'CastToType' ) ) {
 			else if ( is_object( $value ) && get_parent_class( $value ) === 'SplType' ) {
 				switch( get_class( $value ) ) {
 					case 'SplInt':
-						return self::_bool( (int) $value );
+						return self::_bool( (int) $value, $array2null, $allow_empty );
 					case 'SplFloat':
-						return self::_bool( (float) $value );
+						return self::_bool( (float) $value, $array2null, $allow_empty );
 					case 'SplString':
-						return self::_bool( (string) $value );
+						return self::_bool( (string) $value, $array2null, $allow_empty );
 				}
 			}
 			else {
@@ -201,13 +198,13 @@ if ( !class_exists( 'CastToType' ) ) {
 		 * @static
 		 *
 		 * @param	mixed	$value			Value to cast
-		 * @param	bool	$allow_empty	(Optional) Whether to allow empty arrays. Only has effect
-		 *									when $array2null = false
 		 * @param	bool	$array2null		(Optional) Whether to return null for an array or to cast the
 		 *									individual values within the array to the chosen type
+		 * @param	bool	$allow_empty	(Optional) Whether to allow empty arrays. Only has effect
+		 *									when $array2null = false
 		 * @return	int|null
 		 */
-		static function _int( $value, $allow_empty = true, $array2null = true ) {
+		static function _int( $value, $array2null = true, $allow_empty = true ) {
 		
 			if ( is_int( $value ) ) {
 				return $value;
@@ -249,11 +246,11 @@ if ( !class_exists( 'CastToType' ) ) {
 			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplFloat' || get_class( $value ) === 'SplString' ) ) {
 				switch( get_class( $value ) ) {
 					case 'SplBool':
-						return self::_int( (bool) $value );
+						return self::_int( (bool) $value, $array2null, $allow_empty );
 					case 'SplFloat':
-						return self::_int( (float) $value );
+						return self::_int( (float) $value, $array2null, $allow_empty );
 					case 'SplString':
-						return self::_int( (string) $value );
+						return self::_int( (string) $value, $array2null, $allow_empty );
 				}
 			}
 			else {
@@ -267,13 +264,13 @@ if ( !class_exists( 'CastToType' ) ) {
 		 * @static
 		 *
 		 * @param	mixed	$value			Value to cast
-		 * @param	bool	$allow_empty	(Optional) Whether to allow empty arrays. Only has effect
-		 *									when $array2null = false
 		 * @param	bool	$array2null		(Optional) Whether to return null for an array or to cast the
 		 *									individual values within the array to the chosen type
+		 * @param	bool	$allow_empty	(Optional) Whether to allow empty arrays. Only has effect
+		 *									when $array2null = false
 		 * @return	float|null
 		 */
-		static function _float( $value, $allow_empty = true, $array2null = true ) {
+		static function _float( $value, $array2null = true, $allow_empty = true ) {
 			if ( is_float( $value ) ) {
 				return $value;
 			}
@@ -288,11 +285,11 @@ if ( !class_exists( 'CastToType' ) ) {
 			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplInt' || get_class( $value ) === 'SplString' ) ) {
 				switch( get_class( $value ) ) {
 					case 'SplBool':
-						return self::_float( (bool) $value );
+						return self::_float( (bool) $value, $array2null, $allow_empty );
 					case 'SplInt':
-						return self::_float( (int) $value );
+						return self::_float( (int) $value, $array2null, $allow_empty );
 					case 'SplString':
-						return self::_float( (string) $value );
+						return self::_float( (string) $value, $array2null, $allow_empty );
 				}
 			}
 			else if ( is_numeric( $value ) && ( floatval( $value ) == trim( $value ) ) ) {
@@ -313,13 +310,12 @@ if ( !class_exists( 'CastToType' ) ) {
 		 * @static
 		 *
 		 * @param	mixed	$value			Value to cast
-		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings/arrays/objects.
 		 * @param	bool	$array2null		(Optional) Whether to return null for an array or to cast the
 		 *									individual values within the array to the chosen type
-		 * @param	bool	$implode_array
+		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings/arrays/objects.
 		 * @return	string|null
 		 */
-		static function _string( $value, $allow_empty = true, $array2null = true, $implode_array = false ) {
+		static function _string( $value, $array2null = true, $allow_empty = true ) {
 			if ( is_string( $value ) && ( $value !== '' || $allow_empty === true ) ) {
 				return $value;
 			}
@@ -328,9 +324,6 @@ if ( !class_exists( 'CastToType' ) ) {
 			}
 			else if ( $array2null === false && is_array( $value ) ) {
 				return self::recurse( $value, '_string', $allow_empty );
-			}
-			else if ( $implode_array === true && ( is_array( $value ) && count( $value ) > 0 ) ) {
-				return self::mul_dim_implode( $value, ' *{', '}* ', true,	' [', '] => ', $level = 0 );
 			}
 			else if ( is_object( $value ) && get_parent_class( $value ) === 'SplType' ) {
 				if ( (string) $value == $value ) {
@@ -483,7 +476,7 @@ if ( !class_exists( 'CastToType' ) ) {
 				}
 				else {
 					foreach ( $value as $k => $v ) {
-						$value[$k] = self::$method( $v, $allow_empty, false );
+						$value[$k] = self::$method( $v, false, $allow_empty );
 					}
 					return $value;
 				}
@@ -493,63 +486,6 @@ if ( !class_exists( 'CastToType' ) ) {
 			}
 		}
 
-
-		
-		
-		/*
-		http://nl2.php.net/manual/nl/function.explode.php
-		britz_pm at hotmail dot com
-		19-Oct-2005 10:23
-		PLEASE NOTE I HAD TO BREAK SOME LINES CAUSE OF WORDWRAP() WAS NOT HAPPY :(
-		
-		Well i thought of making some versions of explode/implode
-		functions with can do any depth of multi-dimensional arrays
-		with or without keeping the keys
-		
-		make/change the defaults as you need them
-		as for error checking i did not add any because would probably
-		make it take longer to run add em if you please
-		*/
-		/**
-		 *
-		 * @static
-		 */
-		static function mul_dim_implode( $array, $start_glue, $end_glue, $with_keys = false, $start_key_glue = null, $end_key_glue = null, $level = 0 ) {
-		
-			foreach ( $array as $key => $value ) {
-				if ( is_array( $value ) === true ) {
-					$value = self::mul_dim_implode( $value, $start_glue, $end_glue, $with_keys, $start_key_glue, $end_key_glue, ( $level + 1 ) );
-				}
-		
-				if ( isset( $string ) === false ) {
-					$string = ( $with_keys === false ) ? $value : ( $key . $start_key_glue . $level . $end_key_glue . $value );
-				}
-				else {
-					$string .= ( $with_keys === false ) ? ( $start_glue . $level . $end_glue . $value ) : ( $start_glue . $level . $end_glue . $key . $start_key_glue . $level . $end_key_glue . $value );
-				}
-			}
-			return $string;
-		}
-		
-		static function mul_dim_explode( $string, $start_glue, $end_glue, $with_keys = false, $start_key_glue = null, $end_key_glue = null, $level = 0 ) {
-		
-			if ( strstr( $string, $start_glue . $level . $end_glue ) ) {
-				$temp_array = explode( $start_glue . $level . $end_glue, $string );
-				foreach ( $temp_array as $value ) {
-					if ( $with_keys === true ) {
-						$temp = explode( $start_key_glue . $level . $end_key_glue, $value );
-						$array[$temp[0]] = self::mul_dim_explode( $temp[1], $start_glue, $end_glue, $with_keys, $start_key_glue, $end_key_glue, ( $level + 1 ) );
-					}
-					else {
-						$array[] = self::mul_dim_explode( $value, $start_glue, $end_glue, $with_keys, $start_key_glue, $end_key_glue, ( $level + 1 ) );
-					}
-				}
-			}
-			else {
-				return (array) $string;
-			}
-			return $array;
-		}
 	}
 }
 

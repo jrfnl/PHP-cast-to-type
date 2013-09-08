@@ -6,9 +6,8 @@ PHP Class to easily cast variables to a specific type.
 Returns either the value in the specified type or null
 
 Features:
--	Optionally allow/disallow empty strings/arrays
 -	Optionally recursively cast all values in an array to the choosen type (similar to filter_var_array() behaviour)
--	Optionally implode an array when cast to string
+-	Optionally allow/disallow empty strings/arrays
 -	Will succesfully cast any of the following string values to their boolean counterpart (similar to filter_var() behaviour, but less case-sensitive)
 	*	True: '1', 'true', 'True', 'TRUE', 'y', 'Y', 'yes', 'Yes', 'YES', 'on', 'On', 'On'
 	*	False: '0', 'false', 'False', 'FALSE', 'n', 'N', 'no', 'No', 'NO', 'off', 'Off', 'OFF'
@@ -36,12 +35,12 @@ $value = CastToType::_int( $value, $array2null = false ); // array( 123 )
 
 All methods are static.
 
-- `CastToType::cast( $value, $type, $allow_empty = true, $array2null = true, $implode_array = false, $explode_string = false );`
+- `CastToType::cast( $value, $type, $array2null = true, $allow_empty = true, $implode_array = false, $explode_string = false );`
 
-- `CastToType::_bool( $value, $allow_empty = true, $array2null = true );`
-- `CastToType::_int( $value, $allow_empty = true, $array2null = true );`
-- `CastToType::_float( $value, $allow_empty = true, $array2null = true );`
-- `CastToType::_string( $value, $allow_empty = true, $array2null = true, $implode_array = false );`
+- `CastToType::_bool( $value, $array2null = true, $allow_empty = true );`
+- `CastToType::_int( $value, $array2null = true, $allow_empty = true );`
+- `CastToType::_float( $value, $array2null = true, $allow_empty = true );`
+- `CastToType::_string( $value, $array2null = true, $allow_empty = true );`
 - `CastToType::_array( $value, $allow_empty = true );`
 - `CastToType::_object( $value, $allow_empty = true );`
 - `CastToType::_null( $value );`
