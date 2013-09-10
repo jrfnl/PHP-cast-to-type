@@ -177,7 +177,7 @@ if ( !class_exists( 'CastToType' ) ) {
 				}
 			}
 			else if ( is_object( $value ) && get_parent_class( $value ) === 'SplType' ) {
-				switch( get_class( $value ) ) {
+				switch ( get_class( $value ) ) {
 					case 'SplInt':
 						return self::_bool( (int) $value, $array2null, $allow_empty );
 					case 'SplFloat':
@@ -244,7 +244,7 @@ if ( !class_exists( 'CastToType' ) ) {
 				}
 			}
 			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplFloat' || get_class( $value ) === 'SplString' ) ) {
-				switch( get_class( $value ) ) {
+				switch ( get_class( $value ) ) {
 					case 'SplBool':
 						return self::_int( (bool) $value, $array2null, $allow_empty );
 					case 'SplFloat':
@@ -283,7 +283,7 @@ if ( !class_exists( 'CastToType' ) ) {
 				}
 			}
 			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplInt' || get_class( $value ) === 'SplString' ) ) {
-				switch( get_class( $value ) ) {
+				switch ( get_class( $value ) ) {
 					case 'SplBool':
 						return self::_float( (bool) $value, $array2null, $allow_empty );
 					case 'SplInt':
@@ -399,15 +399,15 @@ if ( !class_exists( 'CastToType' ) ) {
 		 * @return	object|null
 		 */
 		static function _object( $value, $allow_empty = true ) {
-			if( is_array( $value ) === true ) {
+			if ( is_array( $value ) === true ) {
 				$has_num_keys = false;
-				foreach( $value as $k => $v ) {
-					if( is_int( $k ) ) {
+				foreach ( $value as $k => $v ) {
+					if ( is_int( $k ) ) {
 						$has_num_keys = true;
 						break;
 					}
 				}
-				if( $has_num_keys === true ) {
+				if ( $has_num_keys === true ) {
 					$value = array( 'array' => $value );
 				}
 				$value = (object) $value;
@@ -444,10 +444,9 @@ if ( !class_exists( 'CastToType' ) ) {
 		 *
 		 * @static
 		 *
-		 * @param	mixed	$value			Value to cast
 		 * @return	null
 		 */
-		static function _null( $value ) {
+		static function _null() {
 			return null;
 		}
 		
