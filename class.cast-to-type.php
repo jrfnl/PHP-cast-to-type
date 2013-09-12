@@ -124,7 +124,8 @@ if ( !class_exists( 'CastToType' ) ) {
 		 *									when $array2null = false
 		 * @return	bool|null
 		 */
-		static function _bool( $value, $array2null = true, $allow_empty = true ) {
+//		static function _bool( $value, $array2null = true, $allow_empty = true ) {
+		function _bool( $value, $array2null = true, $allow_empty = true ) {
 			$true  = array(
 				'1',
 				'true', 'True', 'TRUE',
@@ -204,7 +205,8 @@ if ( !class_exists( 'CastToType' ) ) {
 		 *									when $array2null = false
 		 * @return	int|null
 		 */
-		static function _int( $value, $array2null = true, $allow_empty = true ) {
+//		static function _int( $value, $array2null = true, $allow_empty = true ) {
+		function _int( $value, $array2null = true, $allow_empty = true ) {
 		
 			if ( is_int( $value ) ) {
 				return $value;
@@ -270,7 +272,8 @@ if ( !class_exists( 'CastToType' ) ) {
 		 *									when $array2null = false
 		 * @return	float|null
 		 */
-		static function _float( $value, $array2null = true, $allow_empty = true ) {
+//		static function _float( $value, $array2null = true, $allow_empty = true ) {
+		function _float( $value, $array2null = true, $allow_empty = true ) {
 			if ( is_float( $value ) ) {
 				return $value;
 			}
@@ -315,7 +318,8 @@ if ( !class_exists( 'CastToType' ) ) {
 		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings/arrays/objects.
 		 * @return	string|null
 		 */
-		static function _string( $value, $array2null = true, $allow_empty = true ) {
+//		static function _string( $value, $array2null = true, $allow_empty = true ) {
+		function _string( $value, $array2null = true, $allow_empty = true ) {
 			if ( is_string( $value ) && ( $value !== '' || $allow_empty === true ) ) {
 				return $value;
 			}
@@ -351,7 +355,8 @@ if ( !class_exists( 'CastToType' ) ) {
 		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings/arrays/objects.
 		 * @return	array|null
 		 */
-		static function _array( $value, $allow_empty = true ) {
+//		static function _array( $value, $allow_empty = true ) {
+		function _array( $value, $allow_empty = true ) {
 			if ( version_compare( PHP_VERSION, '5.0.0', '>=' ) === true ) {
 				try{
 					if ( is_array( $value ) !== true ) {
@@ -398,7 +403,8 @@ if ( !class_exists( 'CastToType' ) ) {
 		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings/arrays/objects.
 		 * @return	object|null
 		 */
-		static function _object( $value, $allow_empty = true ) {
+//		static function _object( $value, $allow_empty = true ) {
+		function _object( $value, $allow_empty = true ) {
 			if ( is_array( $value ) === true ) {
 				$has_num_keys = false;
 				foreach ( $value as $k => $v ) {
@@ -446,7 +452,8 @@ if ( !class_exists( 'CastToType' ) ) {
 		 *
 		 * @return	null
 		 */
-		static function _null() {
+//		static function _null() {
+		function _null() {
 			return null;
 		}
 		
@@ -463,7 +470,8 @@ if ( !class_exists( 'CastToType' ) ) {
 		 * @param	bool	$allow_empty	(Optional) Whether to allow empty arrays in the return.
 		 * @return	array|null
 		 */
-		static function recurse( $value, $method, $allow_empty = true ) {
+//		static function recurse( $value, $method, $allow_empty = true ) {
+		function recurse( $value, $method, $allow_empty = true ) {
 			if ( is_array( $value ) ) {
 				if ( count( $value ) === 0 ) {
 					if ( $allow_empty === true ) {
@@ -484,7 +492,6 @@ if ( !class_exists( 'CastToType' ) ) {
 				return null;
 			}
 		}
-
 	}
 }
 
