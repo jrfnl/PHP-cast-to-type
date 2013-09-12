@@ -357,12 +357,12 @@ if ( !class_exists( 'CastToType' ) ) {
 		 */
 //		static function _array( $value, $allow_empty = true ) {
 		function _array( $value, $allow_empty = true ) {
-			if ( version_compare( PHP_VERSION, '5.0.0', '>=' ) === true ) {
+/*			if ( version_compare( PHP_VERSION, '5.0.0', '>=' ) === true ) {
 				try{
 					if ( is_array( $value ) !== true ) {
 						settype( $value, 'array' );
 					}
-	
+
 					if ( count( $value ) > 0 || $allow_empty === true ) {
 						return $value;
 					}
@@ -374,18 +374,18 @@ if ( !class_exists( 'CastToType' ) ) {
 					trigger_error( $e->getMessage(), E_USER_WARNING );
 				}
 			}
-			else {
+			else {*/
 				if ( is_array( $value ) !== true ) {
 					$value = (array) $value;
 				}
-	
+
 				if ( count( $value ) > 0 || $allow_empty === true ) {
 					return $value;
 				}
 				else {
 					return null;
 				}
-			}
+//			}
 		}
 		
 		
