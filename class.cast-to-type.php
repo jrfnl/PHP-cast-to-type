@@ -68,16 +68,16 @@ if ( !class_exists( 'CastToType' ) ) {
 			switch ( $type ) {
 				case 'bool':
 				case 'boolean':
-					return self::_bool( $value, $array2null, $allow_empty );
+					return CastToType::_bool( $value, $array2null, $allow_empty );
 					break;
 		
 				case 'integer':
 				case 'int':
-					return self::_int( $value, $array2null, $allow_empty );
+					return CastToType::_int( $value, $array2null, $allow_empty );
 					break;
 		
 				case 'float':
-					return self::_float( $value, $array2null, $allow_empty );
+					return CastToType::_float( $value, $array2null, $allow_empty );
 					break;
 		
 				case 'num':
@@ -91,15 +91,15 @@ if ( !class_exists( 'CastToType' ) ) {
 					break;
 		
 				case 'string':
-					return self::_string( $value, $array2null, $allow_empty );
+					return CastToType::_string( $value, $array2null, $allow_empty );
 					break;
 		
 				case 'array':
-					return self::_array( $value, $allow_empty );
+					return CastToType::_array( $value, $allow_empty );
 					break;
 		
 				case 'object':
-					return self::_object( $value, $allow_empty );
+					return CastToType::_object( $value, $allow_empty );
 					break;
 	
 				case 'null':
@@ -164,7 +164,7 @@ if ( !class_exists( 'CastToType' ) ) {
 				}
 			}
 			else if ( $array2null === false && is_array( $value ) ) {
-				return self::recurse( $value, '_bool', $allow_empty );
+				return CastToType::recurse( $value, '_bool', $allow_empty );
 			}
 			else if ( is_object( $value ) && get_class( $value ) === 'SplBool' ) {
 				if ( $value == true ) {
@@ -180,11 +180,11 @@ if ( !class_exists( 'CastToType' ) ) {
 			else if ( is_object( $value ) && get_parent_class( $value ) === 'SplType' ) {
 				switch ( get_class( $value ) ) {
 					case 'SplInt':
-						return self::_bool( (int) $value, $array2null, $allow_empty );
+						return CastToType::_bool( (int) $value, $array2null, $allow_empty );
 					case 'SplFloat':
-						return self::_bool( (float) $value, $array2null, $allow_empty );
+						return CastToType::_bool( (float) $value, $array2null, $allow_empty );
 					case 'SplString':
-						return self::_bool( (string) $value, $array2null, $allow_empty );
+						return CastToType::_bool( (string) $value, $array2null, $allow_empty );
 				}
 			}
 			else {
@@ -235,7 +235,7 @@ if ( !class_exists( 'CastToType' ) ) {
 				}
 			}
 			else if ( $array2null === false && is_array( $value ) ) {
-				return self::recurse( $value, '_int', $allow_empty );
+				return CastToType::recurse( $value, '_int', $allow_empty );
 			}
 			else if ( is_object( $value ) && get_class( $value ) === 'SplInt' ) {
 				if ( (int) $value == $value ) {
@@ -248,11 +248,11 @@ if ( !class_exists( 'CastToType' ) ) {
 			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplFloat' || get_class( $value ) === 'SplString' ) ) {
 				switch ( get_class( $value ) ) {
 					case 'SplBool':
-						return self::_int( (bool) $value, $array2null, $allow_empty );
+						return CastToType::_int( (bool) $value, $array2null, $allow_empty );
 					case 'SplFloat':
-						return self::_int( (float) $value, $array2null, $allow_empty );
+						return CastToType::_int( (float) $value, $array2null, $allow_empty );
 					case 'SplString':
-						return self::_int( (string) $value, $array2null, $allow_empty );
+						return CastToType::_int( (string) $value, $array2null, $allow_empty );
 				}
 			}
 			else {
@@ -288,18 +288,18 @@ if ( !class_exists( 'CastToType' ) ) {
 			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplInt' || get_class( $value ) === 'SplString' ) ) {
 				switch ( get_class( $value ) ) {
 					case 'SplBool':
-						return self::_float( (bool) $value, $array2null, $allow_empty );
+						return CastToType::_float( (bool) $value, $array2null, $allow_empty );
 					case 'SplInt':
-						return self::_float( (int) $value, $array2null, $allow_empty );
+						return CastToType::_float( (int) $value, $array2null, $allow_empty );
 					case 'SplString':
-						return self::_float( (string) $value, $array2null, $allow_empty );
+						return CastToType::_float( (string) $value, $array2null, $allow_empty );
 				}
 			}
 			else if ( is_numeric( $value ) && ( floatval( $value ) == trim( $value ) ) ) {
 				return floatval( $value );
 			}
 			else if ( $array2null === false && is_array( $value ) ) {
-				return self::recurse( $value, '_float', $allow_empty );
+				return CastToType::recurse( $value, '_float', $allow_empty );
 			}
 			else {
 				return null;
@@ -327,7 +327,7 @@ if ( !class_exists( 'CastToType' ) ) {
 				return strval( $value );
 			}
 			else if ( $array2null === false && is_array( $value ) ) {
-				return self::recurse( $value, '_string', $allow_empty );
+				return CastToType::recurse( $value, '_string', $allow_empty );
 			}
 			else if ( is_object( $value ) && get_parent_class( $value ) === 'SplType' ) {
 				if ( (string) $value == $value ) {
@@ -483,7 +483,7 @@ if ( !class_exists( 'CastToType' ) ) {
 				}
 				else {
 					foreach ( $value as $k => $v ) {
-						$value[$k] = self::$method( $v, false, $allow_empty );
+						$value[$k] = CastToType::$method( $v, false, $allow_empty );
 					}
 					return $value;
 				}
