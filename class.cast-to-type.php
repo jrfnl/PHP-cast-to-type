@@ -187,9 +187,7 @@ if ( !class_exists( 'CastToType' ) ) {
 						return CastToType::_bool( (string) $value, $array2null, $allow_empty );
 				}
 			}
-			else {
-				return null;
-			}
+			return null;
 		}
 		
 
@@ -255,9 +253,7 @@ if ( !class_exists( 'CastToType' ) ) {
 						return CastToType::_int( (string) $value, $array2null, $allow_empty );
 				}
 			}
-			else {
-				return null;
-			}
+			return null;
 		}
 		
 		/**
@@ -277,6 +273,12 @@ if ( !class_exists( 'CastToType' ) ) {
 			if ( is_float( $value ) ) {
 				return $value;
 			}
+			else if ( is_numeric( trim( $value ) ) && ( floatval( $value ) == trim( $value ) ) ) {
+				return floatval( $value );
+			}
+			else if ( $array2null === false && is_array( $value ) ) {
+				return CastToType::recurse( $value, '_float', $allow_empty );
+			}
 			else if ( is_object( $value ) && get_class( $value ) === 'SplFloat' ) {
 				if ( (float) $value == $value ) {
 					return (float) $value;
@@ -295,15 +297,7 @@ if ( !class_exists( 'CastToType' ) ) {
 						return CastToType::_float( (string) $value, $array2null, $allow_empty );
 				}
 			}
-			else if ( is_numeric( $value ) && ( floatval( $value ) == trim( $value ) ) ) {
-				return floatval( $value );
-			}
-			else if ( $array2null === false && is_array( $value ) ) {
-				return CastToType::recurse( $value, '_float', $allow_empty );
-			}
-			else {
-				return null;
-			}
+			return null;
 		}
 		
 		
@@ -340,20 +334,19 @@ if ( !class_exists( 'CastToType' ) ) {
 			else if ( is_object( $value ) && method_exists( $value, '__toString' ) ) {
 				return (string) $value;
 			}
-			else {
-				return null;
-			}
+			return null;
 		}
-		
-		
+
+
 		/**
 		 * Cast a value to array
 		 *
 		 * @static
 		 *
-		 * @param	mixed	$value			Value to cast
-		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings/arrays/objects.
-		 * @return	array|null
+		 * @param    mixed    $value            Value to cast
+		 * @param    bool     $allow_empty      (Optional) Whether to allow empty strings/arrays/objects.
+		 *
+		 * @return    array|null
 		 */
 //		static function _array( $value, $allow_empty = true ) {
 		function _array( $value, $allow_empty = true ) {
@@ -366,9 +359,7 @@ if ( !class_exists( 'CastToType' ) ) {
 					if ( count( $value ) > 0 || $allow_empty === true ) {
 						return $value;
 					}
-					else {
-						return null;
-					}
+					return null;
 				}
 				catch( Exception $e ) {
 					trigger_error( $e->getMessage(), E_USER_WARNING );
@@ -382,9 +373,7 @@ if ( !class_exists( 'CastToType' ) ) {
 				if ( count( $value ) > 0 || $allow_empty === true ) {
 					return $value;
 				}
-				else {
-					return null;
-				}
+				return null;
 //			}
 		}
 		
@@ -488,9 +477,7 @@ if ( !class_exists( 'CastToType' ) ) {
 					return $value;
 				}
 			}
-			else {
-				return null;
-			}
+			return null;
 		}
 	}
 }
