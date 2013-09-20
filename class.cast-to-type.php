@@ -276,6 +276,10 @@ if ( !class_exists( 'CastToType' ) ) {
 			else if ( $array2null === false && is_array( $value ) ) {
 				return CastToType::recurse( $value, '_float', $allow_empty );
 			}
+			else if ( is_scalar( $value ) && ( is_numeric( trim( $value ) ) && ( floatval( $value ) == trim( $value ) ) ) ) {
+				return floatval( $value );
+			}
+
 			else if ( is_object( $value ) && get_class( $value ) === 'SplFloat' ) {
 				if ( (float) $value == $value ) {
 					return (float) $value;
@@ -294,13 +298,10 @@ if ( !class_exists( 'CastToType' ) ) {
 						return CastToType::_float( (string) $value, $array2null, $allow_empty );
 				}
 			}
-			else if ( !is_object( $value ) && ( is_numeric( trim( $value ) ) && ( floatval( $value ) == trim( $value ) ) ) ) {
-				return floatval( $value );
-			}
 			return null;
 		}
 		
-		
+
 		/**
 		 * Cast a value to string
 		 *
