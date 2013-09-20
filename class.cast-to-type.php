@@ -294,7 +294,7 @@ if ( !class_exists( 'CastToType' ) ) {
 						return CastToType::_float( (string) $value, $array2null, $allow_empty );
 				}
 			}
-			else if ( is_numeric( trim( $value ) ) && ( floatval( $value ) == trim( $value ) ) ) {
+			else if ( !is_object( $value ) && ( is_numeric( trim( $value ) ) && ( floatval( $value ) == trim( $value ) ) ) ) {
 				return floatval( $value );
 			}
 			return null;
