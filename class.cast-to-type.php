@@ -273,11 +273,11 @@ if ( !class_exists( 'CastToType' ) ) {
 			if ( is_float( $value ) ) {
 				return $value;
 			}
-			else if ( is_numeric( trim( $value ) ) && ( floatval( $value ) == trim( $value ) ) ) {
-				return floatval( $value );
-			}
 			else if ( $array2null === false && is_array( $value ) ) {
 				return CastToType::recurse( $value, '_float', $allow_empty );
+			}
+			else if ( is_numeric( trim( $value ) ) && ( floatval( $value ) == trim( $value ) ) ) {
+				return floatval( $value );
 			}
 			else if ( is_object( $value ) && get_class( $value ) === 'SplFloat' ) {
 				if ( (float) $value == $value ) {
