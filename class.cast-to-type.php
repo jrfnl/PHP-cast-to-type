@@ -19,7 +19,7 @@
  * @license		http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License
  * @since		2006
  */
-if ( !class_exists( 'CastToType' ) ) {
+if ( ! class_exists( 'CastToType' ) ) {
 	/**
 	 * CastToType
 	 *
@@ -63,7 +63,7 @@ if ( !class_exists( 'CastToType' ) ) {
 			//$value = trim( $value );
 		
 			// Check if the typing passed is valid, if not return NULL
-			if ( !isset( $valid_types[$type] ) ) {
+			if ( ! isset( $valid_types[$type] ) ) {
 				return null;
 			}
 		
@@ -149,7 +149,7 @@ if ( !class_exists( 'CastToType' ) ) {
 			else if ( is_int( $value ) && ( $value === 0 || $value === 1 ) ) {
 				return (bool) $value;
 			}
-			else if ( ( is_float( $value ) && !is_nan( $value ) ) && ( $value === (float) 0 || $value === (float) 1 ) ) {
+			else if ( ( is_float( $value ) && ! is_nan( $value ) ) && ( $value === (float) 0 || $value === (float) 1 ) ) {
 				return (bool) $value;
 			}
 			else if ( is_string( $value ) ) {
@@ -209,7 +209,7 @@ if ( !class_exists( 'CastToType' ) ) {
 				return $value;
 			}
 			else if ( is_float( $value ) ) {
-				if ( (int) $value == $value && !is_nan( $value ) ) {
+				if ( (int) $value == $value && ! is_nan( $value ) ) {
 					return ( int) $value;
 				}
 				else {
