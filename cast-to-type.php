@@ -25,5 +25,3 @@ if ( version_compare( PHP_VERSION, '5.0.0', '>=' ) ) {
 else {
 	include( dirname( __FILE__ ) . '/class.cast-to-type-php4.php' );
 }
-
-?>

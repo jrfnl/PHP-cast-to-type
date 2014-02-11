@@ -463,5 +463,3 @@ if ( ! class_exists( 'CastToType' ) ) {
 		}
 	}
 }
-
-?>
