@@ -3,7 +3,7 @@
  * CastToType
  *
  * Class to easily cast variables to a specific type
- * 
+ *
  * Features:
  * - Optionally allow/disallow empty strings/arrays
  * - Optionally recursively cast all values in an array to the choosen type (similar to filter_var_array() behaviour)
@@ -33,7 +33,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 	 * @license		http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License
 	 */
 	class CastToType {
-		
+
 		/**
 		 * Cast a value to specific variable type
 		 *
@@ -57,31 +57,41 @@ if ( ! class_exists( 'CastToType' ) ) {
 			if ( isset( $value ) === false || isset( $type ) === false ) {
 				return null;
 			}
-		
+
 			$type = strtolower( trim( $type ) );
-			$valid_types = array( 'bool' => 1, 'boolean' => 1, 'int' => 1, 'integer' => 1, 'float' => 1, 'num' => 1, 'string' => 1, 'array' => 1, 'object' => 1, );
+			$valid_types = array(
+				'bool'    => 1,
+				'boolean' => 1,
+				'int'     => 1,
+				'integer' => 1,
+				'float'   => 1,
+				'num'     => 1,
+				'string'  => 1,
+				'array'   => 1,
+				'object'  => 1,
+			);
 			//$value = trim( $value );
-		
+
 			// Check if the typing passed is valid, if not return NULL
-			if ( ! isset( $valid_types[$type] ) ) {
+			if ( ! isset( $valid_types[ $type ] ) ) {
 				return null;
 			}
-		
+
 			switch ( $type ) {
 				case 'bool':
 				case 'boolean':
 					return CastToType::_bool( $value, $array2null, $allow_empty );
 					break;
-		
+
 				case 'integer':
 				case 'int':
 					return CastToType::_int( $value, $array2null, $allow_empty );
 					break;
-		
+
 				case 'float':
 					return CastToType::_float( $value, $array2null, $allow_empty );
 					break;
-		
+
 				case 'num':
 					if ( is_numeric( $value ) ) {
 						$value = ( ( (float) $value != (int) $value ) ? (float) $value : (int) $value );
@@ -91,29 +101,29 @@ if ( ! class_exists( 'CastToType' ) ) {
 					}
 					return $value;
 					break;
-		
+
 				case 'string':
 					return CastToType::_string( $value, $array2null, $allow_empty );
 					break;
-		
+
 				case 'array':
 					return CastToType::_array( $value, $allow_empty );
 					break;
-		
+
 				case 'object':
 					return CastToType::_object( $value, $allow_empty );
 					break;
-	
+
 				case 'null':
 				default:
 					return null;
 					break;
 			}
 		}
-	
 
-		
-	
+
+
+
 		/**
 		 * Cast a value to bool
 		 *
@@ -133,7 +143,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 				'y', 'Y',
 				'yes', 'Yes', 'YES',
 				'on', 'On', 'On',
-		
+
 			);
 			$false = array(
 				'0',
@@ -142,7 +152,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 				'no', 'No', 'NO',
 				'off', 'Off', 'OFF',
 			);
-		
+
 			if ( is_bool( $value ) ) {
 				return $value;
 			}
@@ -190,7 +200,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 			}
 			return null;
 		}
-		
+
 
 		/**
 		 * Cast a value to integer
@@ -205,13 +215,13 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 * @return	int|null
 		 */
 		function _int( $value, $array2null = true, $allow_empty = true ) {
-		
+
 			if ( is_int( $value ) ) {
 				return $value;
 			}
 			else if ( is_float( $value ) ) {
 				if ( (int) $value == $value && ! is_nan( $value ) ) {
-					return ( int) $value;
+					return (int) $value;
 				}
 				else {
 					return null;
@@ -255,7 +265,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 			}
 			return null;
 		}
-		
+
 		/**
 		 * Cast a value to float
 		 *
@@ -299,7 +309,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 			}
 			return null;
 		}
-		
+
 
 		/**
 		 * Cast a value to string
@@ -413,7 +423,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 			return $value;
 		}
 
-		
+
 		/**
 		 * Cast a value to null (for completeness)
 		 *
@@ -424,8 +434,8 @@ if ( ! class_exists( 'CastToType' ) ) {
 		function _null() {
 			return null;
 		}
-		
-		
+
+
 		/**
 		 * Recurse through an array
 		 *
@@ -450,7 +460,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 				}
 				else {
 					foreach ( $value as $k => $v ) {
-						$value[$k] = CastToType::$method( $v, false, $allow_empty );
+						$value[ $k ] = CastToType::$method( $v, false, $allow_empty );
 					}
 					return $value;
 				}
