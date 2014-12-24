@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ruleset name="PHP Cast to Type">
+
+	<rule ref="WordPress">
+		<exclude name="Generic.Files.LineEndings.InvalidEOLChar" />
+
+		<!-- Demanding Yoda conditions is stupid. -->
+		<exclude name="WordPress.PHP.YodaConditions"/>
+
+	</rule>
+	<rule ref="Generic.WhiteSpace.ScopeIndent">
+		<properties>
+			<property name="indent" value="1"/>
+			<property name="tabIndent" value="true"/>
+		</properties>
+	</rule>
+
+</ruleset>
