@@ -2,6 +2,10 @@
 <ruleset name="PHP Cast to Type">
 	<description>PHP Cast to Type rules for PHP_CodeSniffer</description>
 
+	<!-- Exclude the codesniffer itself from checks. -->
+	<exclude-pattern>phpcs/*</exclude-pattern>
+	<exclude-pattern>wpcs/*</exclude-pattern>
+
 	<rule ref="WordPress-Extra">
 		<exclude name="Generic.Files.LineEndings.InvalidEOLChar" />
 
