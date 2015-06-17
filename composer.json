@@ -1,0 +1,24 @@
+{
+    "name": "jrfnl/PHP-cast-to-type",
+    "description": "PHP Class to easily and consistently cast variables to a specific type.",
+    "homepage": "https://github.com/jrfnl/PHP-cast-to-type",
+    "keywords": ["type casting","type juggling", "cross version"],
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Juliette Reinders Folmer",
+            "homepage": "https://github.com/jrfnl",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/jrfnl/PHP-cast-to-type/issues",
+        "source": "https://github.com/jrfnl/PHP-cast-to-type"
+    },
+    "require": {
+        "php": ">=5.0"
+    },
+    "autoload": {
+        "files": ["class.cast-to-type.php"]
+    }
+}
