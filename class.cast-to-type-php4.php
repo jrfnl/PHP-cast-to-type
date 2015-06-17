@@ -126,7 +126,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 *                           individual values within the array to the chosen type.
 		 * @param bool  $allow_empty (Optional) Whether to allow empty arrays. Only has effect
 		 *                           when $array2null = false.
-		 * @return bool|null
+		 * @return bool|array|null
 		 */
 		function _bool( $value, $array2null = true, $allow_empty = true ) {
 			$true = array(
@@ -209,7 +209,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 *                           individual values within the array to the chosen type.
 		 * @param bool  $allow_empty (Optional) Whether to allow empty arrays. Only has effect
 		 *                           when $array2null = false.
-		 * @return int|null
+		 * @return int|array|null
 		 */
 		function _int( $value, $array2null = true, $allow_empty = true ) {
 
@@ -279,7 +279,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 *                           individual values within the array to the chosen type.
 		 * @param bool  $allow_empty (Optional) Whether to allow empty arrays. Only has effect
 		 *                           when $array2null = false.
-		 * @return float|null
+		 * @return float|array|null
 		 */
 		function _float( $value, $array2null = true, $allow_empty = true ) {
 			if ( is_float( $value ) ) {
@@ -329,7 +329,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 *                           individual values within the array to the chosen type.
 		 * @param bool  $allow_empty (Optional) Whether to allow empty strings/arrays/objects.
 		 *
-		 * @return string|null
+		 * @return string|array|null
 		 */
 		function _string( $value, $array2null = true, $allow_empty = true ) {
 			if ( is_string( $value ) && ( $value !== '' || $allow_empty === true ) ) {
