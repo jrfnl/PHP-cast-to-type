@@ -12,7 +12,7 @@
  * File:      class.cast-to-type.php
  *
  * @package   CastToType
- * @version   1.0
+ * @version   2.0
  * @link      https://github.com/jrfnl/PHP-cast-to-type.git
  * @author    Juliette Reinders Folmer, {@link http://www.adviesenzo.nl/ Advies en zo} -
  *            <casttotype@adviesenzo.nl>
@@ -26,7 +26,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 	 * CastToType
 	 *
 	 * @package   CastToType
-	 * @version   1.0
+	 * @version   2.0
 	 * @link      https://github.com/jrfnl/PHP-cast-to-type.git
 	 * @author    Juliette Reinders Folmer, {@link http://www.adviesenzo.nl/ Advies en zo} -
 	 *            <casttotype@adviesenzo.nl>
@@ -470,6 +470,8 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 * Cast an SPL object to scalar.
 		 *
 		 * @static
+		 *
+		 * @since 2.0
 		 *
 		 * @param \SplType $value       Value to cast.
 		 * @param string   $method      Calling method, i.e. cast to which type of variable.

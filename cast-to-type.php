@@ -7,12 +7,11 @@
  * Features:
  * - Optionally allow/disallow empty strings/arrays.
  * - Optionally recursively cast all values in an array to the choosen type (similar to filter_var_array() behaviour).
- * - Optionally implode an array when cast to string.
  *
  * File:      cast-to-type.php
  *
  * @package   CastToType
- * @version   1.0
+ * @version   2.0
  * @link      https://github.com/jrfnl/PHP-cast-to-type.git
  * @author    Juliette Reinders Folmer, {@link http://www.adviesenzo.nl/ Advies en zo} -
  *            <casttotype@adviesenzo.nl>
@@ -21,7 +20,7 @@
  * @since     2006
  */
 
-if ( version_compare( PHP_VERSION, '5.0.0', '>=' ) ) {
+if ( PHP_VERSION_ID > 50000 ) {
 	include dirname( __FILE__ ) . '/class.cast-to-type.php';
 }
 else {
