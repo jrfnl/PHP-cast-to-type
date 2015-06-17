@@ -463,7 +463,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 *                              individual values within the array to the chosen type.
 		 * @param bool     $allow_empty (Optional) Whether to allow empty strings/arrays/objects.
 		 *
-		 * @return string|array|null
+		 * @return bool|int|float|string|null
 		 */
 		function spl_helper( $value, $method, $array2null = true, $allow_empty = true ) {
 			switch ( get_class( $value ) ) {
