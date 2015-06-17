@@ -183,20 +183,9 @@ if ( ! class_exists( 'CastToType' ) ) {
 				}
 			}
 			else if ( is_object( $value ) && get_parent_class( $value ) === 'SplType' ) {
-				switch ( get_class( $value ) ) {
-					case 'SplInt':
-						return self::_bool( (int) $value, $array2null, $allow_empty );
-
-					case 'SplFloat':
-						return self::_bool( (float) $value, $array2null, $allow_empty );
-
-					case 'SplString':
-						return self::_bool( (string) $value, $array2null, $allow_empty );
-
-					default:
-						return null;
-				}
+				return self::spl_helper( $value, '_bool', $array2null, $allow_empty );
 			}
+
 			return null;
 		}
 
@@ -253,20 +242,9 @@ if ( ! class_exists( 'CastToType' ) ) {
 				}
 			}
 			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplFloat' || get_class( $value ) === 'SplString' ) ) {
-				switch ( get_class( $value ) ) {
-					case 'SplBool':
-						return self::_int( (bool) $value, $array2null, $allow_empty );
-
-					case 'SplFloat':
-						return self::_int( (float) $value, $array2null, $allow_empty );
-
-					case 'SplString':
-						return self::_int( (string) $value, $array2null, $allow_empty );
-
-					default:
-						return null;
-				}
+				return self::spl_helper( $value, '_int', $array2null, $allow_empty );
 			}
+
 			return null;
 		}
 
@@ -294,7 +272,6 @@ if ( ! class_exists( 'CastToType' ) ) {
 			else if ( is_scalar( $value ) && ( is_numeric( trim( $value ) ) && ( floatval( $value ) == trim( $value ) ) ) ) {
 				return floatval( $value );
 			}
-
 			else if ( is_object( $value ) && get_class( $value ) === 'SplFloat' ) {
 				if ( (float) $value == $value ) {
 					return (float) $value;
@@ -304,20 +281,9 @@ if ( ! class_exists( 'CastToType' ) ) {
 				}
 			}
 			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplInt' || get_class( $value ) === 'SplString' ) ) {
-				switch ( get_class( $value ) ) {
-					case 'SplBool':
-						return self::_float( (bool) $value, $array2null, $allow_empty );
-
-					case 'SplInt':
-						return self::_float( (int) $value, $array2null, $allow_empty );
-
-					case 'SplString':
-						return self::_float( (string) $value, $array2null, $allow_empty );
-
-					default:
-						return null;
-				}
+				return self::spl_helper( $value, '_float', $array2null, $allow_empty );
 			}
+
 			return null;
 		}
 
@@ -493,6 +459,40 @@ if ( ! class_exists( 'CastToType' ) ) {
 				}
 			}
 			return null;
+		}
+
+
+		/**
+		 * Cast an SPL object to scalar.
+		 *
+		 * @static
+		 *
+		 * @param \SplType $value       Value to cast.
+		 * @param string   $method      Calling method, i.e. cast to which type of variable.
+		 *                              Can only be _bool, _int, _float or _string.
+		 * @param bool     $array2null  (Optional) Whether to return null for an array or to cast the
+		 *                              individual values within the array to the chosen type.
+		 * @param bool     $allow_empty (Optional) Whether to allow empty strings/arrays/objects.
+		 *
+		 * @return string|array|null
+		 */
+		static function spl_helper( $value, $method, $array2null = true, $allow_empty = true ) {
+			switch ( get_class( $value ) ) {
+				case 'SplBool':
+					return self::$method( (bool) $value, $array2null, $allow_empty );
+
+				case 'SplInt':
+					return self::$method( (int) $value, $array2null, $allow_empty );
+
+				case 'SplFloat':
+					return self::$method( (float) $value, $array2null, $allow_empty );
+
+				case 'SplString':
+					return self::$method( (string) $value, $array2null, $allow_empty );
+
+				default:
+					return null;
+			}
 		}
 	}
 

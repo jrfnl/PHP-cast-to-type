@@ -52,6 +52,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 * @param bool   $allow_empty (Optional) Whether to allow empty strings, empty arrays, empty objects.
 		 *                            If false, null will be returned instead of the empty string/array/object.
 		 *                            Defaults to true.
+		 *
 		 * @return mixed|null
 		 */
 		function cast( $value, $type, $array2null = true, $allow_empty = true ) {
@@ -126,6 +127,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 *                           individual values within the array to the chosen type.
 		 * @param bool  $allow_empty (Optional) Whether to allow empty arrays. Only has effect
 		 *                           when $array2null = false.
+		 *
 		 * @return bool|array|null
 		 */
 		function _bool( $value, $array2null = true, $allow_empty = true ) {
@@ -181,20 +183,9 @@ if ( ! class_exists( 'CastToType' ) ) {
 				}
 			}
 			else if ( is_object( $value ) && get_parent_class( $value ) === 'SplType' ) {
-				switch ( get_class( $value ) ) {
-					case 'SplInt':
-						return CastToType::_bool( (int) $value, $array2null, $allow_empty );
-
-					case 'SplFloat':
-						return CastToType::_bool( (float) $value, $array2null, $allow_empty );
-
-					case 'SplString':
-						return CastToType::_bool( (string) $value, $array2null, $allow_empty );
-
-					default:
-						return null;
-				}
+				return CastToType::spl_helper( $value, '_bool', $array2null, $allow_empty );
 			}
+
 			return null;
 		}
 
@@ -209,10 +200,10 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 *                           individual values within the array to the chosen type.
 		 * @param bool  $allow_empty (Optional) Whether to allow empty arrays. Only has effect
 		 *                           when $array2null = false.
+		 *
 		 * @return int|array|null
 		 */
 		function _int( $value, $array2null = true, $allow_empty = true ) {
-
 			if ( is_int( $value ) ) {
 				return $value;
 			}
@@ -251,20 +242,9 @@ if ( ! class_exists( 'CastToType' ) ) {
 				}
 			}
 			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplFloat' || get_class( $value ) === 'SplString' ) ) {
-				switch ( get_class( $value ) ) {
-					case 'SplBool':
-						return CastToType::_int( (bool) $value, $array2null, $allow_empty );
-
-					case 'SplFloat':
-						return CastToType::_int( (float) $value, $array2null, $allow_empty );
-
-					case 'SplString':
-						return CastToType::_int( (string) $value, $array2null, $allow_empty );
-
-					default:
-						return null;
-				}
+				return CastToType::spl_helper( $value, '_int', $array2null, $allow_empty );
 			}
+
 			return null;
 		}
 
@@ -279,6 +259,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 *                           individual values within the array to the chosen type.
 		 * @param bool  $allow_empty (Optional) Whether to allow empty arrays. Only has effect
 		 *                           when $array2null = false.
+		 *
 		 * @return float|array|null
 		 */
 		function _float( $value, $array2null = true, $allow_empty = true ) {
@@ -291,7 +272,6 @@ if ( ! class_exists( 'CastToType' ) ) {
 			else if ( is_scalar( $value ) && ( is_numeric( trim( $value ) ) && ( floatval( $value ) == trim( $value ) ) ) ) {
 				return floatval( $value );
 			}
-
 			else if ( is_object( $value ) && get_class( $value ) === 'SplFloat' ) {
 				if ( (float) $value == $value ) {
 					return (float) $value;
@@ -301,20 +281,9 @@ if ( ! class_exists( 'CastToType' ) ) {
 				}
 			}
 			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplInt' || get_class( $value ) === 'SplString' ) ) {
-				switch ( get_class( $value ) ) {
-					case 'SplBool':
-						return CastToType::_float( (bool) $value, $array2null, $allow_empty );
-
-					case 'SplInt':
-						return CastToType::_float( (int) $value, $array2null, $allow_empty );
-
-					case 'SplString':
-						return CastToType::_float( (string) $value, $array2null, $allow_empty );
-
-					default:
-						return null;
-				}
+				return CastToType::spl_helper( $value, '_float', $array2null, $allow_empty );
 			}
+
 			return null;
 		}
 
@@ -475,6 +444,40 @@ if ( ! class_exists( 'CastToType' ) ) {
 				}
 			}
 			return null;
+		}
+
+
+		/**
+		 * Cast an SPL object to scalar.
+		 *
+		 * @static
+		 *
+		 * @param \SplType $value       Value to cast.
+		 * @param string   $method      Calling method, i.e. cast to which type of variable.
+		 *                              Can only be _bool, _int, _float or _string.
+		 * @param bool     $array2null  (Optional) Whether to return null for an array or to cast the
+		 *                              individual values within the array to the chosen type.
+		 * @param bool     $allow_empty (Optional) Whether to allow empty strings/arrays/objects.
+		 *
+		 * @return string|array|null
+		 */
+		function spl_helper( $value, $method, $array2null = true, $allow_empty = true ) {
+			switch ( get_class( $value ) ) {
+				case 'SplBool':
+					return CastToType::$method( (bool) $value, $array2null, $allow_empty );
+
+				case 'SplInt':
+					return CastToType::$method( (int) $value, $array2null, $allow_empty );
+
+				case 'SplFloat':
+					return CastToType::$method( (float) $value, $array2null, $allow_empty );
+
+				case 'SplString':
+					return CastToType::$method( (string) $value, $array2null, $allow_empty );
+
+				default:
+					return null;
+			}
 		}
 	}
 
