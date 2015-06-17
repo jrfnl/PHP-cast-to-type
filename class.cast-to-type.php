@@ -428,7 +428,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 			}
 
 			if ( $allow_empty === false ) {
-				if ( version_compare( PHP_VERSION, '5.0.0', '>=' ) === true ) {
+				if ( PHP_VERSION_ID > 50200 ) {
 					$obj = new ReflectionObject( $value );
 					if ( ( count( $obj->getMethods() ) + count( $obj->getProperties() ) + count( $obj->getConstants() ) ) === 0 ) {
 						// No methods, properties or constants found.
@@ -436,10 +436,10 @@ if ( ! class_exists( 'CastToType' ) ) {
 					}
 				}
 				else {
-					// PHP4
+					// PHP <= 5.1
 					$methods    = get_class_methods( $value );
 					$properties = get_object_vars( $value );
-					if ( ( is_null( $methods ) || count( get_class_methods( $value ) ) === 0 ) && ( is_null( $properties ) || count( get_class_methods( $properties ) ) === 0 ) ) {
+					if ( ( is_null( $methods ) || count( $methods ) === 0 ) && ( is_null( $properties ) || count( $properties ) === 0 ) ) {
 						// No methods or properties found.
 						$value = null;
 					}
