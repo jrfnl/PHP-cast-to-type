@@ -1,55 +1,58 @@
 <?php
 /**
- * CastToType
+ * CastToType.
  *
- * Class to easily cast variables to a specific type
+ * Class to easily cast variables to a specific type.
  *
  * Features:
- * - Optionally allow/disallow empty strings/arrays
- * - Optionally recursively cast all values in an array to the choosen type (similar to filter_var_array() behaviour)
- * - Optionally implode an array when cast to string
+ * - Optionally allow/disallow empty strings/arrays.
+ * - Optionally recursively cast all values in an array to the choosen type (similar to filter_var_array() behaviour).
+ * - Optionally implode an array when cast to string.
  *
- * File:		class.cast-to-type-php4.php
- * @package		CastToType
- * @version		1.0
- * @link		https://github.com/jrfnl/PHP-cast-to-type.git
- * @author		Juliette Reinders Folmer, {@link http://www.adviesenzo.nl/ Advies en zo} -
- *				<casttotype@adviesenzo.nl>
- * @copyright	(c) 2006-2013, Advies en zo, Meedenken en -doen <casttotype@adviesenzo.nl> All rights reserved
- * @license		http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License
- * @since		2006
+ * File:       class.cast-to-type-php4.php
+ *
+ * @package   CastToType
+ * @version   1.0
+ * @link      https://github.com/jrfnl/PHP-cast-to-type.git
+ * @author    Juliette Reinders Folmer, {@link http://www.adviesenzo.nl/ Advies en zo} -
+ *            <casttotype@adviesenzo.nl>
+ * @copyright (c) 2006-2015, Advies en zo, Meedenken en -doen <casttotype@adviesenzo.nl> All rights reserved.
+ * @license   http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License.
+ * @since     2006
  */
+
 if ( ! class_exists( 'CastToType' ) ) {
 	/**
 	 * CastToType
 	 *
-	 * @package		CastToType
-	 * @version		1.0
-	 * @link		https://github.com/jrfnl/PHP-cast-to-type.git
-	 * @author		Juliette Reinders Folmer, {@link http://www.adviesenzo.nl/ Advies en zo} -
-	 *				<casttotype@adviesenzo.nl>
-	 * @copyright	(c) 2013, Advies en zo, Meedenken en -doen <casttotype@adviesenzo.nl>
-	 *				All rights reserved
-	 * @license		http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License
+	 * @package   CastToType
+	 * @version   1.0
+	 * @link      https://github.com/jrfnl/PHP-cast-to-type.git
+	 * @author    Juliette Reinders Folmer, {@link http://www.adviesenzo.nl/ Advies en zo} -
+	 *            <casttotype@adviesenzo.nl>
+	 * @copyright (c) 2013, Advies en zo, Meedenken en -doen <casttotype@adviesenzo.nl>
+	 *            All rights reserved.
+	 * @license   http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License.
 	 */
 	class CastToType {
 
+
 		/**
-		 * Cast a value to specific variable type
+		 * Cast a value to specific variable type.
 		 *
 		 * @static
 		 *
-		 * @param	mixed	$value			Value to cast
-		 * @param	string	$type			Type to cast to
-		 * @param	bool	$array2null		(Optional) Whether to return null for arrays when casting to
-		 *									bool, int, float, num or string.
-		 *									If false, the individual values held in the array will recursively
-		 *									be cast to the specified type.
-		 *									Defaults to true
-		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings, empty arrays, empty objects
-		 *									If false, null will be returned instead of the empty string/array/object
-		 *									Defaults to true
-		 * @return	mixed|null
+		 * @param mixed  $value       Value to cast.
+		 * @param string $type        Type to cast to.
+		 * @param bool   $array2null  (Optional) Whether to return null for arrays when casting to
+		 *                            bool, int, float, num or string.
+		 *                            If false, the individual values held in the array will recursively
+		 *                            be cast to the specified type.
+		 *                            Defaults to true.
+		 * @param bool   $allow_empty (Optional) Whether to allow empty strings, empty arrays, empty objects.
+		 *                            If false, null will be returned instead of the empty string/array/object.
+		 *                            Defaults to true.
+		 * @return mixed|null
 		 */
 		function cast( $value, $type, $array2null = true, $allow_empty = true ) {
 
@@ -58,7 +61,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 				return null;
 			}
 
-			$type = strtolower( trim( $type ) );
+			$type        = strtolower( trim( $type ) );
 			$valid_types = array(
 				'bool'    => 1,
 				'boolean' => 1,
@@ -70,9 +73,8 @@ if ( ! class_exists( 'CastToType' ) ) {
 				'array'   => 1,
 				'object'  => 1,
 			);
-			//$value = trim( $value );
 
-			// Check if the typing passed is valid, if not return NULL
+			// Check if the typing passed is valid, if not return NULL.
 			if ( ! isset( $valid_types[ $type ] ) ) {
 				return null;
 			}
@@ -81,16 +83,13 @@ if ( ! class_exists( 'CastToType' ) ) {
 				case 'bool':
 				case 'boolean':
 					return CastToType::_bool( $value, $array2null, $allow_empty );
-					break;
 
 				case 'integer':
 				case 'int':
 					return CastToType::_int( $value, $array2null, $allow_empty );
-					break;
 
 				case 'float':
 					return CastToType::_float( $value, $array2null, $allow_empty );
-					break;
 
 				case 'num':
 					if ( is_numeric( $value ) ) {
@@ -100,44 +99,37 @@ if ( ! class_exists( 'CastToType' ) ) {
 						$value = null;
 					}
 					return $value;
-					break;
 
 				case 'string':
 					return CastToType::_string( $value, $array2null, $allow_empty );
-					break;
 
 				case 'array':
 					return CastToType::_array( $value, $allow_empty );
-					break;
 
 				case 'object':
 					return CastToType::_object( $value, $allow_empty );
-					break;
 
 				case 'null':
 				default:
 					return null;
-					break;
 			}
 		}
 
 
-
-
 		/**
-		 * Cast a value to bool
+		 * Cast a value to bool.
 		 *
 		 * @static
 		 *
-		 * @param	mixed	$value			Value to cast
-		 * @param	bool	$array2null		(Optional) Whether to return null for an array or to cast the
-		 *									individual values within the array to the chosen type
-		 * @param	bool	$allow_empty	(Optional) Whether to allow empty arrays. Only has effect
-		 *									when $array2null = false
-		 * @return	bool|null
+		 * @param mixed $value       Value to cast.
+		 * @param bool  $array2null  (Optional) Whether to return null for an array or to cast the
+		 *                           individual values within the array to the chosen type.
+		 * @param bool  $allow_empty (Optional) Whether to allow empty arrays. Only has effect
+		 *                           when $array2null = false.
+		 * @return bool|null
 		 */
 		function _bool( $value, $array2null = true, $allow_empty = true ) {
-			$true  = array(
+			$true = array(
 				'1',
 				'true', 'True', 'TRUE',
 				'y', 'Y',
@@ -192,10 +184,15 @@ if ( ! class_exists( 'CastToType' ) ) {
 				switch ( get_class( $value ) ) {
 					case 'SplInt':
 						return CastToType::_bool( (int) $value, $array2null, $allow_empty );
+
 					case 'SplFloat':
 						return CastToType::_bool( (float) $value, $array2null, $allow_empty );
+
 					case 'SplString':
 						return CastToType::_bool( (string) $value, $array2null, $allow_empty );
+
+					default:
+						return null;
 				}
 			}
 			return null;
@@ -203,16 +200,16 @@ if ( ! class_exists( 'CastToType' ) ) {
 
 
 		/**
-		 * Cast a value to integer
+		 * Cast a value to integer.
 		 *
 		 * @static
 		 *
-		 * @param	mixed	$value			Value to cast
-		 * @param	bool	$array2null		(Optional) Whether to return null for an array or to cast the
-		 *									individual values within the array to the chosen type
-		 * @param	bool	$allow_empty	(Optional) Whether to allow empty arrays. Only has effect
-		 *									when $array2null = false
-		 * @return	int|null
+		 * @param mixed $value       Value to cast.
+		 * @param bool  $array2null  (Optional) Whether to return null for an array or to cast the
+		 *                           individual values within the array to the chosen type.
+		 * @param bool  $allow_empty (Optional) Whether to allow empty arrays. Only has effect
+		 *                           when $array2null = false.
+		 * @return int|null
 		 */
 		function _int( $value, $array2null = true, $allow_empty = true ) {
 
@@ -236,7 +233,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 					return (int) $value;
 				}
 				else if ( strpos( $value, '-' ) === 0 && ctype_digit( substr( $value, 1 ) ) ) {
-					return (int) $value ;
+					return (int) $value;
 				}
 				else {
 					return null;
@@ -257,26 +254,32 @@ if ( ! class_exists( 'CastToType' ) ) {
 				switch ( get_class( $value ) ) {
 					case 'SplBool':
 						return CastToType::_int( (bool) $value, $array2null, $allow_empty );
+
 					case 'SplFloat':
 						return CastToType::_int( (float) $value, $array2null, $allow_empty );
+
 					case 'SplString':
 						return CastToType::_int( (string) $value, $array2null, $allow_empty );
+
+					default:
+						return null;
 				}
 			}
 			return null;
 		}
 
+
 		/**
-		 * Cast a value to float
+		 * Cast a value to float.
 		 *
 		 * @static
 		 *
-		 * @param	mixed	$value			Value to cast
-		 * @param	bool	$array2null		(Optional) Whether to return null for an array or to cast the
-		 *									individual values within the array to the chosen type
-		 * @param	bool	$allow_empty	(Optional) Whether to allow empty arrays. Only has effect
-		 *									when $array2null = false
-		 * @return	float|null
+		 * @param mixed $value       Value to cast.
+		 * @param bool  $array2null  (Optional) Whether to return null for an array or to cast the
+		 *                           individual values within the array to the chosen type.
+		 * @param bool  $allow_empty (Optional) Whether to allow empty arrays. Only has effect
+		 *                           when $array2null = false.
+		 * @return float|null
 		 */
 		function _float( $value, $array2null = true, $allow_empty = true ) {
 			if ( is_float( $value ) ) {
@@ -301,10 +304,15 @@ if ( ! class_exists( 'CastToType' ) ) {
 				switch ( get_class( $value ) ) {
 					case 'SplBool':
 						return CastToType::_float( (bool) $value, $array2null, $allow_empty );
+
 					case 'SplInt':
 						return CastToType::_float( (int) $value, $array2null, $allow_empty );
+
 					case 'SplString':
 						return CastToType::_float( (string) $value, $array2null, $allow_empty );
+
+					default:
+						return null;
 				}
 			}
 			return null;
@@ -312,15 +320,16 @@ if ( ! class_exists( 'CastToType' ) ) {
 
 
 		/**
-		 * Cast a value to string
+		 * Cast a value to string.
 		 *
 		 * @static
 		 *
-		 * @param	mixed	$value			Value to cast
-		 * @param	bool	$array2null		(Optional) Whether to return null for an array or to cast the
-		 *									individual values within the array to the chosen type
-		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings/arrays/objects.
-		 * @return	string|null
+		 * @param mixed $value       Value to cast.
+		 * @param bool  $array2null  (Optional) Whether to return null for an array or to cast the
+		 *                           individual values within the array to the chosen type.
+		 * @param bool  $allow_empty (Optional) Whether to allow empty strings/arrays/objects.
+		 *
+		 * @return string|null
 		 */
 		function _string( $value, $array2null = true, $allow_empty = true ) {
 			if ( is_string( $value ) && ( $value !== '' || $allow_empty === true ) ) {
@@ -348,14 +357,14 @@ if ( ! class_exists( 'CastToType' ) ) {
 
 
 		/**
-		 * Cast a value to array
+		 * Cast a value to array.
 		 *
 		 * @static
 		 *
-		 * @param    mixed    $value            Value to cast
-		 * @param    bool     $allow_empty      (Optional) Whether to allow empty strings/arrays/objects.
+		 * @param mixed $value       Value to cast.
+		 * @param bool  $allow_empty (Optional) Whether to allow empty strings/arrays/objects.
 		 *
-		 * @return    array|null
+		 * @return array|null
 		 */
 		function _array( $value, $allow_empty = true ) {
 			if ( is_array( $value ) !== true ) {
@@ -370,7 +379,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 
 
 		/**
-		 * Cast a value to object
+		 * Cast a value to object.
 		 *
 		 * Please note: in a normal array to object cast, array values with numerical keys are 'lost'.
 		 * This method checks whether the array contains numerical keys, if it doesn't it will do a
@@ -379,9 +388,10 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 *
 		 * @static
 		 *
-		 * @param	mixed	$value			Value to cast
-		 * @param	bool	$allow_empty	(Optional) Whether to allow empty strings/arrays/objects.
-		 * @return	object|null
+		 * @param mixed $value       Value to cast.
+		 * @param bool  $allow_empty (Optional) Whether to allow empty strings/arrays/objects.
+		 *
+		 * @return object|null
 		 */
 		function _object( $value, $allow_empty = true ) {
 			if ( is_array( $value ) === true ) {
@@ -405,7 +415,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 				if ( version_compare( PHP_VERSION, '5.0.0', '>=' ) === true ) {
 					$obj = new ReflectionObject( $value );
 					if ( ( count( $obj->getMethods() ) + count( $obj->getProperties() ) + count( $obj->getConstants() ) ) === 0 ) {
-						// No methods, properties or constants found
+						// No methods, properties or constants found.
 						$value = null;
 					}
 				}
@@ -414,7 +424,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 					$methods    = get_class_methods( $value );
 					$properties = get_object_vars( $value );
 					if ( ( is_null( $methods ) || count( get_class_methods( $value ) ) === 0 ) && ( is_null( $properties ) || count( get_class_methods( $properties ) ) === 0 ) ) {
-						// No methods or properties found
+						// No methods or properties found.
 						$value = null;
 					}
 				}
@@ -425,11 +435,11 @@ if ( ! class_exists( 'CastToType' ) ) {
 
 
 		/**
-		 * Cast a value to null (for completeness)
+		 * Cast a value to null (for completeness).
 		 *
 		 * @static
 		 *
-		 * @return	null
+		 * @return null
 		 */
 		function _null() {
 			return null;
@@ -437,16 +447,17 @@ if ( ! class_exists( 'CastToType' ) ) {
 
 
 		/**
-		 * Recurse through an array
+		 * Recurse through an array.
 		 *
 		 * @static
 		 * @internal
 		 *
-		 * @param	array	$value			Array holding values to cast
-		 * @param	string	$method			Calling method, i.e. cast to which type of variable
-		 *									Can only be _bool, _int, _float or _string
-		 * @param	bool	$allow_empty	(Optional) Whether to allow empty arrays in the return.
-		 * @return	array|null
+		 * @param array  $value       Array holding values to cast.
+		 * @param string $method      Calling method, i.e. cast to which type of variable.
+		 *                            Can only be _bool, _int, _float or _string.
+		 * @param bool   $allow_empty (Optional) Whether to allow empty arrays in the return.
+		 *
+		 * @return array|null
 		 */
 		function recurse( $value, $method, $allow_empty = true ) {
 			if ( is_array( $value ) ) {
@@ -468,4 +479,5 @@ if ( ! class_exists( 'CastToType' ) ) {
 			return null;
 		}
 	}
+
 }
