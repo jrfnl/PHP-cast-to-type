@@ -363,6 +363,10 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 * @return object|null
 		 */
 		function _object( $value, $allow_empty = true ) {
+			if ( $allow_empty === false && ( is_string( $value ) && $value === '' ) ) {
+				return null;
+			}
+
 			if ( is_array( $value ) === true ) {
 				$has_num_keys = false;
 				foreach ( $value as $k => $v ) {
