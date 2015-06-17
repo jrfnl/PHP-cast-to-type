@@ -357,7 +357,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 * @return    array|null
 		 */
 		static function _array( $value, $allow_empty = true ) {
-			try{
+			try {
 				if ( is_array( $value ) !== true ) {
 					settype( $value, 'array' );
 				}
@@ -367,7 +367,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 				}
 				return null;
 			}
-			catch( Exception $e ) {
+			catch ( Exception $e ) {
 				trigger_error( $e->getMessage(), E_USER_WARNING );
 			}
 		}

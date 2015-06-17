@@ -1,18 +1,25 @@
 <?xml version="1.0"?>
 <ruleset name="PHP Cast to Type">
+	<description>PHP Cast to Type rules for PHP_CodeSniffer</description>
 
-	<rule ref="WordPress">
+	<rule ref="WordPress-Extra">
 		<exclude name="Generic.Files.LineEndings.InvalidEOLChar" />
+
+		<exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines" />
+		<exclude name="WordPress.Arrays.ArrayDeclaration.ValueNoNewline" />
+		
+		<!-- Kind of defies the point of this class. -->
+		<exclude name="WordPress.PHP.StrictComparisons" />
+
+		<!-- else on new line is perfectly fine -->
+		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />
 
 		<!-- Demanding Yoda conditions is stupid. -->
 		<exclude name="WordPress.PHP.YodaConditions"/>
 
-	</rule>
-	<rule ref="Generic.WhiteSpace.ScopeIndent">
-		<properties>
-			<property name="indent" value="1"/>
-			<property name="tabIndent" value="true"/>
-		</properties>
+		<!-- WP specific sniffs which should be ignored -->
+		<exclude name="WordPress.WP.EnqueuedResources" />
+		<exclude name="WordPress.XSS.EscapeOutput" />
 	</rule>
 
 </ruleset>
