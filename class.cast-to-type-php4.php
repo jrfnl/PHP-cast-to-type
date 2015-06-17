@@ -20,6 +20,7 @@
  * @license   http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License.
  * @since     2006
  */
+
 if ( ! class_exists( 'CastToType' ) ) {
 	/**
 	 * CastToType
@@ -34,6 +35,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 	 * @license   http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License.
 	 */
 	class CastToType {
+
 
 		/**
 		 * Cast a value to specific variable type.
@@ -59,7 +61,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 				return null;
 			}
 
-			$type = strtolower( trim( $type ) );
+			$type        = strtolower( trim( $type ) );
 			$valid_types = array(
 				'bool'    => 1,
 				'boolean' => 1,
@@ -71,7 +73,6 @@ if ( ! class_exists( 'CastToType' ) ) {
 				'array'   => 1,
 				'object'  => 1,
 			);
-			//$value = trim( $value );
 
 			// Check if the typing passed is valid, if not return NULL.
 			if ( ! isset( $valid_types[ $type ] ) ) {
@@ -82,16 +83,13 @@ if ( ! class_exists( 'CastToType' ) ) {
 				case 'bool':
 				case 'boolean':
 					return CastToType::_bool( $value, $array2null, $allow_empty );
-					break;
 
 				case 'integer':
 				case 'int':
 					return CastToType::_int( $value, $array2null, $allow_empty );
-					break;
 
 				case 'float':
 					return CastToType::_float( $value, $array2null, $allow_empty );
-					break;
 
 				case 'num':
 					if ( is_numeric( $value ) ) {
@@ -101,28 +99,21 @@ if ( ! class_exists( 'CastToType' ) ) {
 						$value = null;
 					}
 					return $value;
-					break;
 
 				case 'string':
 					return CastToType::_string( $value, $array2null, $allow_empty );
-					break;
 
 				case 'array':
 					return CastToType::_array( $value, $allow_empty );
-					break;
 
 				case 'object':
 					return CastToType::_object( $value, $allow_empty );
-					break;
 
 				case 'null':
 				default:
 					return null;
-					break;
 			}
 		}
-
-
 
 
 		/**
@@ -138,7 +129,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 * @return bool|null
 		 */
 		function _bool( $value, $array2null = true, $allow_empty = true ) {
-			$true  = array(
+			$true = array(
 				'1',
 				'true', 'True', 'TRUE',
 				'y', 'Y',
@@ -193,10 +184,15 @@ if ( ! class_exists( 'CastToType' ) ) {
 				switch ( get_class( $value ) ) {
 					case 'SplInt':
 						return CastToType::_bool( (int) $value, $array2null, $allow_empty );
+
 					case 'SplFloat':
 						return CastToType::_bool( (float) $value, $array2null, $allow_empty );
+
 					case 'SplString':
 						return CastToType::_bool( (string) $value, $array2null, $allow_empty );
+
+					default:
+						return null;
 				}
 			}
 			return null;
@@ -237,7 +233,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 					return (int) $value;
 				}
 				else if ( strpos( $value, '-' ) === 0 && ctype_digit( substr( $value, 1 ) ) ) {
-					return (int) $value ;
+					return (int) $value;
 				}
 				else {
 					return null;
@@ -258,14 +254,20 @@ if ( ! class_exists( 'CastToType' ) ) {
 				switch ( get_class( $value ) ) {
 					case 'SplBool':
 						return CastToType::_int( (bool) $value, $array2null, $allow_empty );
+
 					case 'SplFloat':
 						return CastToType::_int( (float) $value, $array2null, $allow_empty );
+
 					case 'SplString':
 						return CastToType::_int( (string) $value, $array2null, $allow_empty );
+
+					default:
+						return null;
 				}
 			}
 			return null;
 		}
+
 
 		/**
 		 * Cast a value to float.
@@ -277,7 +279,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 *                           individual values within the array to the chosen type.
 		 * @param bool  $allow_empty (Optional) Whether to allow empty arrays. Only has effect
 		 *                           when $array2null = false.
-		 * @return	float|null
+		 * @return float|null
 		 */
 		function _float( $value, $array2null = true, $allow_empty = true ) {
 			if ( is_float( $value ) ) {
@@ -302,10 +304,15 @@ if ( ! class_exists( 'CastToType' ) ) {
 				switch ( get_class( $value ) ) {
 					case 'SplBool':
 						return CastToType::_float( (bool) $value, $array2null, $allow_empty );
+
 					case 'SplInt':
 						return CastToType::_float( (int) $value, $array2null, $allow_empty );
+
 					case 'SplString':
 						return CastToType::_float( (string) $value, $array2null, $allow_empty );
+
+					default:
+						return null;
 				}
 			}
 			return null;
@@ -384,7 +391,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 * @param mixed $value       Value to cast.
 		 * @param bool  $allow_empty (Optional) Whether to allow empty strings/arrays/objects.
 		 *
-		 * @return	object|null
+		 * @return object|null
 		 */
 		function _object( $value, $allow_empty = true ) {
 			if ( is_array( $value ) === true ) {
@@ -472,4 +479,5 @@ if ( ! class_exists( 'CastToType' ) ) {
 			return null;
 		}
 	}
+
 }

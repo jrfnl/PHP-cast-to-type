@@ -20,9 +20,10 @@
  * @license   http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License.
  * @since     2006
  */
+
 if ( version_compare( PHP_VERSION, '5.0.0', '>=' ) ) {
-	include( dirname( __FILE__ ) . '/class.cast-to-type.php' );
+	include dirname( __FILE__ ) . '/class.cast-to-type.php';
 }
 else {
-	include( dirname( __FILE__ ) . '/class.cast-to-type-php4.php' );
+	include dirname( __FILE__ ) . '/class.cast-to-type-php4.php';
 }

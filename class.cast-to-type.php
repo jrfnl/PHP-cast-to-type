@@ -20,6 +20,7 @@
  * @license   http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License.
  * @since     2006
  */
+
 if ( ! class_exists( 'CastToType' ) ) {
 	/**
 	 * CastToType
@@ -34,6 +35,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 	 * @license   http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License.
 	 */
 	class CastToType {
+
 
 		/**
 		 * Cast a value to specific variable type.
@@ -60,7 +62,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 				return null;
 			}
 
-			$type = strtolower( trim( $type ) );
+			$type        = strtolower( trim( $type ) );
 			$valid_types = array(
 				'bool'    => 1,
 				'boolean' => 1,
@@ -72,7 +74,6 @@ if ( ! class_exists( 'CastToType' ) ) {
 				'array'   => 1,
 				'object'  => 1,
 			);
-			//$value = trim( $value );
 
 			// Check if the typing passed is valid, if not return NULL.
 			if ( ! isset( $valid_types[ $type ] ) ) {
@@ -83,16 +84,13 @@ if ( ! class_exists( 'CastToType' ) ) {
 				case 'bool':
 				case 'boolean':
 					return self::_bool( $value, $array2null, $allow_empty );
-					break;
 
 				case 'integer':
 				case 'int':
 					return self::_int( $value, $array2null, $allow_empty );
-					break;
 
 				case 'float':
 					return self::_float( $value, $array2null, $allow_empty );
-					break;
 
 				case 'num':
 					if ( is_numeric( $value ) ) {
@@ -102,28 +100,21 @@ if ( ! class_exists( 'CastToType' ) ) {
 						$value = null;
 					}
 					return $value;
-					break;
 
 				case 'string':
 					return self::_string( $value, $array2null, $allow_empty );
-					break;
 
 				case 'array':
 					return self::_array( $value, $allow_empty );
-					break;
 
 				case 'object':
 					return self::_object( $value, $allow_empty );
-					break;
 
 				case 'null':
 				default:
 					return null;
-					break;
 			}
 		}
-
-
 
 
 		/**
@@ -140,7 +131,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 		 * @return bool|null
 		 */
 		static function _bool( $value, $array2null = true, $allow_empty = true ) {
-			$true  = array(
+			$true = array(
 				'1',
 				'true', 'True', 'TRUE',
 				'y', 'Y',
@@ -195,10 +186,15 @@ if ( ! class_exists( 'CastToType' ) ) {
 				switch ( get_class( $value ) ) {
 					case 'SplInt':
 						return self::_bool( (int) $value, $array2null, $allow_empty );
+
 					case 'SplFloat':
 						return self::_bool( (float) $value, $array2null, $allow_empty );
+
 					case 'SplString':
 						return self::_bool( (string) $value, $array2null, $allow_empty );
+
+					default:
+						return null;
 				}
 			}
 			return null;
@@ -239,7 +235,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 					return (int) $value;
 				}
 				else if ( strpos( $value, '-' ) === 0 && ctype_digit( substr( $value, 1 ) ) ) {
-					return (int) $value ;
+					return (int) $value;
 				}
 				else {
 					return null;
@@ -260,14 +256,20 @@ if ( ! class_exists( 'CastToType' ) ) {
 				switch ( get_class( $value ) ) {
 					case 'SplBool':
 						return self::_int( (bool) $value, $array2null, $allow_empty );
+
 					case 'SplFloat':
 						return self::_int( (float) $value, $array2null, $allow_empty );
+
 					case 'SplString':
 						return self::_int( (string) $value, $array2null, $allow_empty );
+
+					default:
+						return null;
 				}
 			}
 			return null;
 		}
+
 
 		/**
 		 * Cast a value to float.
@@ -305,10 +307,15 @@ if ( ! class_exists( 'CastToType' ) ) {
 				switch ( get_class( $value ) ) {
 					case 'SplBool':
 						return self::_float( (bool) $value, $array2null, $allow_empty );
+
 					case 'SplInt':
 						return self::_float( (int) $value, $array2null, $allow_empty );
+
 					case 'SplString':
 						return self::_float( (string) $value, $array2null, $allow_empty );
+
+					default:
+						return null;
 				}
 			}
 			return null;
@@ -480,4 +487,5 @@ if ( ! class_exists( 'CastToType' ) ) {
 			return null;
 		}
 	}
+
 }
