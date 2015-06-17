@@ -389,10 +389,10 @@ if ( ! class_exists( 'CastToType' ) ) {
 		/**
 		 * Cast a value to object.
 		 *
-		 * Please note: in a normal array to object cast, array values with numerical keys are 'lost'.
+		 * Please note: in a normal array to object cast pre-PHP7, array values with numerical keys are 'lost'.
 		 * This method checks whether the array contains numerical keys, if it doesn't it will do a
-		 * normal array to object cast. If it does, it will wrap the array in an array with the
-		 * key value 'array' before casting.
+		 * normal array to object cast. If it does, it will cast each numerically indexes value to a numerical
+		 * property, similar to the behaviour in PHP7.
 		 *
 		 * @static
 		 *
@@ -410,10 +410,18 @@ if ( ! class_exists( 'CastToType' ) ) {
 						break;
 					}
 				}
-				if ( $has_num_keys === true ) {
-					$value = array( 'array' => $value );
+
+				if ( $has_num_keys === false ) {
+					$value = (object) $value;
 				}
-				$value = (object) $value;
+				else {
+					$new_value = new stdClass();
+					foreach ( $value as $k => $v ) {
+						$new_value->$k = $v;
+					}
+					$value = $new_value;
+					unset( $new_value, $k, $v );
+				}
 			}
 			else if ( is_object( $value ) !== true ) {
 				$value = (object) $value;
