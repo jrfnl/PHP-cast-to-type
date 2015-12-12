@@ -22,6 +22,7 @@
  */
 
 if ( ! class_exists( 'CastToType' ) ) {
+
 	/**
 	 * CastToType
 	 *
@@ -406,7 +407,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 					}
 				}
 				else {
-					// PHP <= 5.1
+					// PHP <= 5.1.
 					$methods    = get_class_methods( $value );
 					$properties = get_object_vars( $value );
 					if ( ( is_null( $methods ) || count( $methods ) === 0 ) && ( is_null( $properties ) || count( $properties ) === 0 ) ) {

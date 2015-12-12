@@ -2,16 +2,11 @@
 <ruleset name="PHP Cast to Type">
 	<description>PHP Cast to Type rules for PHP_CodeSniffer</description>
 
-	<!-- Exclude the codesniffer itself from checks. -->
-	<exclude-pattern>phpcs/*</exclude-pattern>
-	<exclude-pattern>wpcs/*</exclude-pattern>
+	<rule ref="WordPress">
+		<exclude name="WordPress.VIP" />
 
-	<rule ref="WordPress-Extra">
-		<exclude name="Generic.Files.LineEndings.InvalidEOLChar" />
-
-		<exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines" />
 		<exclude name="WordPress.Arrays.ArrayDeclaration.ValueNoNewline" />
-		
+
 		<!-- Kind of defies the point of this class. -->
 		<exclude name="WordPress.PHP.StrictComparisons" />
 
