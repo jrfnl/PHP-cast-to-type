@@ -13,9 +13,9 @@
  * @link      https://github.com/jrfnl/PHP-cast-to-type.git
  * @author    Juliette Reinders Folmer, {@link http://www.adviesenzo.nl/ Advies en zo} -
  *            <casttotype@adviesenzo.nl>
- * @copyright (c) 2006-2015, Advies en zo, Meedenken en -doen <casttotype@adviesenzo.nl> All rights reserved.
+ * @copyright (c) 2006-2016, Advies en zo, Meedenken en -doen <casttotype@adviesenzo.nl> All rights reserved.
  * @license   http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License.
- * @since     2006
+ * @since     1.0
  */
 
 if ( PHP_VERSION_ID > 50000 ) {
