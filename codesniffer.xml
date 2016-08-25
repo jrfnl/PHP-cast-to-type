@@ -2,14 +2,19 @@
 <ruleset name="PHP Cast to Type">
 	<description>PHP Cast to Type rules for PHP_CodeSniffer</description>
 
-	<rule ref="WordPress">
-		<exclude name="WordPress.VIP" />
+	<!-- PHP cross-version compatibility -->
+	<config name="testVersion" value="4.0-99.0"/>
+	<rule ref="PHPCompatibility"/>
 
+	<!-- Code style -->
+	<rule ref="WordPress">
 		<exclude name="WordPress.Arrays.ArrayDeclaration.ValueNoNewline" />
 
 		<!-- Kind of defies the point of this class. -->
 		<exclude name="WordPress.PHP.StrictComparisons" />
 
+		<!-- else if is perfectly fine -->
+		<exclude name="PSR2.ControlStructures.ElseIfDeclaration.NotAllowed" />
 		<!-- else on new line is perfectly fine -->
 		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />
 
@@ -17,7 +22,7 @@
 		<exclude name="WordPress.PHP.YodaConditions"/>
 
 		<!-- WP specific sniffs which should be ignored -->
-		<exclude name="WordPress.WP.EnqueuedResources" />
+		<exclude name="WordPress.VIP" />
 		<exclude name="WordPress.XSS.EscapeOutput" />
 	</rule>
 
