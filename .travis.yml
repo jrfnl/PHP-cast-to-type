@@ -4,6 +4,8 @@
 # Use new container based environment
 sudo: false
 
+dist: trusty
+
 # Declare project language.
 # @link http://about.travis-ci.org/docs/user/languages/php/
 language: php
@@ -15,8 +17,10 @@ matrix:
   include:
     # aliased to 5.2.17
     - php: '5.2'
+      dist: precise
     # aliased to 5.3.29
     - php: '5.3'
+      dist: precise
     # aliased to a recent 5.4.x version
     - php: '5.4'
     # aliased to a recent 5.5.x version
