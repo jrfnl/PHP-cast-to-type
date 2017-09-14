@@ -151,39 +151,39 @@ if ( ! class_exists( 'CastToType' ) ) {
 			if ( is_bool( $value ) ) {
 				return $value;
 			}
-			else if ( is_int( $value ) && ( $value === 0 || $value === 1 ) ) {
+			elseif ( is_int( $value ) && ( $value === 0 || $value === 1 ) ) {
 				return (bool) $value;
 			}
-			else if ( ( is_float( $value ) && ! is_nan( $value ) ) && ( $value === (float) 0 || $value === (float) 1 ) ) {
+			elseif ( ( is_float( $value ) && ! is_nan( $value ) ) && ( $value === (float) 0 || $value === (float) 1 ) ) {
 				return (bool) $value;
 			}
-			else if ( is_string( $value ) ) {
+			elseif ( is_string( $value ) ) {
 				$value = trim( $value );
 				if ( in_array( $value, $true, true ) ) {
 					return true;
 				}
-				else if ( in_array( $value, $false, true ) ) {
+				elseif ( in_array( $value, $false, true ) ) {
 					return false;
 				}
 				else {
 					return null;
 				}
 			}
-			else if ( $array2null === false && is_array( $value ) ) {
+			elseif ( $array2null === false && is_array( $value ) ) {
 				return CastToType::recurse( $value, '_bool', $allow_empty );
 			}
-			else if ( is_object( $value ) && get_class( $value ) === 'SplBool' ) {
+			elseif ( is_object( $value ) && get_class( $value ) === 'SplBool' ) {
 				if ( $value == true ) {
 					return true;
 				}
-				else if ( $value == false ) {
+				elseif ( $value == false ) {
 					return false;
 				}
 				else {
 					return null;
 				}
 			}
-			else if ( is_object( $value ) && get_parent_class( $value ) === 'SplType' ) {
+			elseif ( is_object( $value ) && get_parent_class( $value ) === 'SplType' ) {
 				return CastToType::spl_helper( $value, '_bool', $array2null, $allow_empty );
 			}
 
@@ -208,7 +208,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 			if ( is_int( $value ) ) {
 				return $value;
 			}
-			else if ( is_float( $value ) ) {
+			elseif ( is_float( $value ) ) {
 				if ( (int) $value == $value && ! is_nan( $value ) ) {
 					return (int) $value;
 				}
@@ -216,25 +216,25 @@ if ( ! class_exists( 'CastToType' ) ) {
 					return null;
 				}
 			}
-			else if ( is_string( $value ) ) {
+			elseif ( is_string( $value ) ) {
 				$value = trim( $value );
 				if ( $value === '' ) {
 					return null;
 				}
-				else if ( ctype_digit( $value ) ) {
+				elseif ( ctype_digit( $value ) ) {
 					return (int) $value;
 				}
-				else if ( strpos( $value, '-' ) === 0 && ctype_digit( substr( $value, 1 ) ) ) {
+				elseif ( strpos( $value, '-' ) === 0 && ctype_digit( substr( $value, 1 ) ) ) {
 					return (int) $value;
 				}
 				else {
 					return null;
 				}
 			}
-			else if ( $array2null === false && is_array( $value ) ) {
+			elseif ( $array2null === false && is_array( $value ) ) {
 				return CastToType::recurse( $value, '_int', $allow_empty );
 			}
-			else if ( is_object( $value ) && get_class( $value ) === 'SplInt' ) {
+			elseif ( is_object( $value ) && get_class( $value ) === 'SplInt' ) {
 				if ( (int) $value == $value ) {
 					return (int) $value;
 				}
@@ -242,7 +242,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 					return null;
 				}
 			}
-			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplFloat' || get_class( $value ) === 'SplString' ) ) {
+			elseif ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplFloat' || get_class( $value ) === 'SplString' ) ) {
 				return CastToType::spl_helper( $value, '_int', $array2null, $allow_empty );
 			}
 
@@ -267,13 +267,13 @@ if ( ! class_exists( 'CastToType' ) ) {
 			if ( is_float( $value ) ) {
 				return $value;
 			}
-			else if ( $array2null === false && is_array( $value ) ) {
+			elseif ( $array2null === false && is_array( $value ) ) {
 				return CastToType::recurse( $value, '_float', $allow_empty );
 			}
-			else if ( is_scalar( $value ) && ( is_numeric( trim( $value ) ) && ( floatval( $value ) == trim( $value ) ) ) ) {
+			elseif ( is_scalar( $value ) && ( is_numeric( trim( $value ) ) && ( floatval( $value ) == trim( $value ) ) ) ) {
 				return floatval( $value );
 			}
-			else if ( is_object( $value ) && get_class( $value ) === 'SplFloat' ) {
+			elseif ( is_object( $value ) && get_class( $value ) === 'SplFloat' ) {
 				if ( (float) $value == $value ) {
 					return (float) $value;
 				}
@@ -281,7 +281,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 					return null;
 				}
 			}
-			else if ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplInt' || get_class( $value ) === 'SplString' ) ) {
+			elseif ( is_object( $value ) && ( get_class( $value ) === 'SplBool' || get_class( $value ) === 'SplInt' || get_class( $value ) === 'SplString' ) ) {
 				return CastToType::spl_helper( $value, '_float', $array2null, $allow_empty );
 			}
 
@@ -305,13 +305,13 @@ if ( ! class_exists( 'CastToType' ) ) {
 			if ( is_string( $value ) && ( $value !== '' || $allow_empty === true ) ) {
 				return $value;
 			}
-			else if ( is_int( $value ) || is_float( $value ) ) {
+			elseif ( is_int( $value ) || is_float( $value ) ) {
 				return strval( $value );
 			}
-			else if ( $array2null === false && is_array( $value ) ) {
+			elseif ( $array2null === false && is_array( $value ) ) {
 				return CastToType::recurse( $value, '_string', $allow_empty );
 			}
-			else if ( is_object( $value ) && get_parent_class( $value ) === 'SplType' ) {
+			elseif ( is_object( $value ) && get_parent_class( $value ) === 'SplType' ) {
 				if ( (string) $value == $value ) {
 					return (string) $value;
 				}
@@ -319,7 +319,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 					return null;
 				}
 			}
-			else if ( is_object( $value ) && method_exists( $value, '__toString' ) ) {
+			elseif ( is_object( $value ) && method_exists( $value, '__toString' ) ) {
 				return (string) $value;
 			}
 			return null;
@@ -389,7 +389,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 					unset( $new_value, $k, $v );
 				}
 			}
-			else if ( is_object( $value ) !== true ) {
+			elseif ( is_object( $value ) !== true ) {
 				$value = (object) $value;
 			}
 

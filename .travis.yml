@@ -4,6 +4,8 @@
 # Use new container based environment
 sudo: false
 
+dist: trusty
+
 # Declare project language.
 # @link http://about.travis-ci.org/docs/user/languages/php/
 language: php
@@ -15,8 +17,10 @@ matrix:
   include:
     # aliased to 5.2.17
     - php: '5.2'
+      dist: precise
     # aliased to 5.3.29
     - php: '5.3'
+      dist: precise
     # aliased to a recent 5.4.x version
     - php: '5.4'
     # aliased to a recent 5.5.x version
@@ -28,6 +32,8 @@ matrix:
     - php: '7.0'
     # aliased to a recent 7.1.x version
     - php: '7.1'
+    # aliased to a recent 7.2.x version
+    - php: '7.2'
     # aliased to a recent hhvm version
     - php: 'hhvm'
 
@@ -40,19 +46,16 @@ matrix:
 before_script:
     - export PHPCS_DIR=/tmp/phpcs
     - export WPCS_DIR=/tmp/wpcs
+    - export PHPCOMPAT_DIR=/tmp/phpcompatibility
     # Install CodeSniffer for WordPress Coding Standards checks.
     - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR; fi
     # Install WordPress Coding Standards.
     - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git $WPCS_DIR; fi
     # Install PHPCompatibility Sniffs.
-    - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/wimg/PHPCompatibility.git $PHPCS_DIR/CodeSniffer/Standards/PHPCompatibility; fi
-    # Hop into CodeSniffer directory.
-    - if [[ "$SNIFF" == "1" ]]; then cd $PHPCS_DIR; fi
-    # Set install path for WordPress Coding Standards.
+    - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/wimg/PHPCompatibility.git $PHPCOMPAT_DIR; fi
+    # Set install path for PHPCS sniffs.
     # @link https://github.com/squizlabs/PHP_CodeSniffer/blob/4237c2fc98cc838730b76ee9cee316f99286a2a7/CodeSniffer.php#L1941
-    - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/scripts/phpcs --config-set installed_paths $WPCS_DIR; fi
-    # Hop back into project dir.
-    - if [[ "$SNIFF" == "1" ]]; then cd $TRAVIS_BUILD_DIR; fi
+    - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs --config-set installed_paths $WPCS_DIR,$PHPCOMPAT_DIR; fi
     # After CodeSniffer install you should refresh your path.
     - if [[ "$SNIFF" == "1" ]]; then phpenv rehash; fi
 
@@ -71,4 +74,4 @@ script:
     # -n flag: Do not print warnings. (shortcut for --warning-severity=0)
     # --standard: Use WordPress as the standard.
     # --extensions: Only sniff PHP files.
-    - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/scripts/phpcs -p -s -v -n . --standard=./codesniffer.xml --extensions=php; fi
+    - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs --runtime-set ignore_warnings_on_exit 1; fi
