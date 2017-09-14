@@ -16,28 +16,40 @@
 	<!-- Check all files in this directory and the directories below it. -->
 	<file>.</file>
 
-	<!-- PHP cross-version compatibility -->
+	<!-- PHP cross-version compatibility. -->
 	<config name="testVersion" value="4.0-99.0"/>
 	<rule ref="PHPCompatibility"/>
+	<rule ref="PHPCompatibility.PHP.NewClasses.exceptionFound">
+		<!-- Fine in PHP 5+. -->
+		<exclude-pattern>/class\.cast-to-type\.php</exclude-pattern>
+	</rule>
 
-	<!-- Code style -->
+	<!-- Code style. -->
 	<rule ref="WordPress">
-		<exclude name="WordPress.Arrays.ArrayDeclaration.ValueNoNewline" />
+		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing.ArrayItemNoNewLine"/>
 
 		<!-- Kind of defies the point of this class. -->
-		<exclude name="WordPress.PHP.StrictComparisons" />
+		<exclude name="WordPress.PHP.StrictComparisons"/>
 
-		<!-- else if is perfectly fine -->
-		<exclude name="PSR2.ControlStructures.ElseIfDeclaration.NotAllowed" />
 		<!-- else on new line is perfectly fine -->
-		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace" />
+		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace"/>
 
 		<!-- Demanding Yoda conditions is stupid. -->
 		<exclude name="WordPress.PHP.YodaConditions"/>
 
-		<!-- WP specific sniffs which should be ignored -->
-		<exclude name="WordPress.VIP" />
-		<exclude name="WordPress.XSS.EscapeOutput" />
+		<!-- WP specific sniffs which should be ignored. -->
+		<exclude name="WordPress.VIP"/>
+		<exclude name="WordPress.XSS.EscapeOutput"/>
+	</rule>
+
+	<rule ref="WordPress.Files.FileName">
+		<properties>
+			<property name="strict_class_file_names" value="false"/>
+		</properties>
+	</rule>
+
+	<rule ref="Squiz.Scope.MethodScope">
+		<exclude-pattern>/class\.cast-to-type-php4\.php</exclude-pattern>
 	</rule>
 
 </ruleset>
