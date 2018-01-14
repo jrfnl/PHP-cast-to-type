@@ -18,7 +18,7 @@
  * @since     1.0
  */
 
-if ( PHP_VERSION_ID > 50000 ) {
+if ( version_compare( phpversion(), '5.0.0', '>=' ) ) {
 	include dirname( __FILE__ ) . '/class.cast-to-type.php';
 }
 else {
