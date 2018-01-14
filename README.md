@@ -72,7 +72,7 @@ Param | Type | Description
 If you are using PHP5+ (as you should), PHP-Cast-to_Type is also available as a [package](https://packagist.org/packages/jrfnl/PHP-cast-to-type) installable via Composer:
 
 ~~~sh
-composer create-project jrfnl/PHP-cast-to-type --no-dev
+composer require jrfnl/PHP-cast-to-type
 ~~~
 
 
