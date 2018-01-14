@@ -402,7 +402,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 			}
 
 			if ( $allow_empty === false ) {
-				if ( PHP_VERSION_ID > 50200 ) {
+				if ( version_compare( phpversion(), '5.2.0', '>=' ) && class_exists( 'ReflectionObject' ) ) {
 					$obj = new ReflectionObject( $value );
 					if ( ( count( $obj->getMethods() ) + count( $obj->getProperties() ) + count( $obj->getConstants() ) ) === 0 ) {
 						// No methods, properties or constants found.
