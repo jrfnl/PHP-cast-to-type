@@ -9,7 +9,7 @@ PHP Class to easily and consistently cast variables to a specific type.
 
 Returns either the value in the specified type or `null`.
 
-Features:
+### Features:
 -   Consistent results across PHP versions.
 -	Compatible with PHP4, PHP5 and PHP7 which makes it extra useful if you're coding for open source software where you don't know the library user's PHP version and the `filter_var()` functions may not be available.
 -	Optionally recursively cast all values in an array to the choosen type (similar to `filter_var_array()` behaviour).
@@ -57,8 +57,8 @@ Param | Type | Description
 ----- | ---- | -----------
 `$value` | mixed | Value to cast.
 `$type`  | string | Type to cast to. Valid values: `'bool'`, `'boolean'`, `'int'`, `'integer'`, `'float'`, `'num'`, `'string'`, `'array'`, `'object'`.
-`$array2null` | bool | (Optional) Whether to return `null` for arrays when casting to bool, int, float, num or string. If false, the individual values held in the array will recursively be cast to the specified type. Defaults to `true`.
-`$allow_empty` | bool | (Optional) Whether to allow empty strings, empty arrays, empty objects. If false, `null` will be returned instead of the empty string/array/object. Defaults to `true`.
+`$array2null` | bool | Optional. Whether to return `null` for arrays when casting to bool, int, float, num or string. If false, the individual values held in the array will recursively be cast to the specified type. Defaults to `true`.
+`$allow_empty` | bool | Optional. Whether to allow empty strings, empty arrays, empty objects. If false, `null` will be returned instead of the empty string/array/object. Defaults to `true`.
 
 
 ### Installation
