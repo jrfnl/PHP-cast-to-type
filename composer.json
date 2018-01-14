@@ -3,7 +3,7 @@
     "description": "PHP Class to easily and consistently cast variables to a specific type.",
     "homepage": "https://github.com/jrfnl/PHP-cast-to-type",
     "keywords": ["type casting","type juggling", "cross version"],
-    "license": "GPL-2.0+",
+    "license": "GPL-2.0-or-later",
     "authors": [
         {
             "name": "Juliette Reinders Folmer",

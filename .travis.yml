@@ -77,3 +77,6 @@ script:
     # --standard: Use WordPress as the standard.
     # --extensions: Only sniff PHP files.
     - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs --runtime-set ignore_warnings_on_exit 1; fi
+    # Validate the composer.json file.
+    # @link https://getcomposer.org/doc/03-cli.md#validate
+    - if [[ $TRAVIS_PHP_VERSION != "5.2" ]]; then composer validate --no-check-all; fi
