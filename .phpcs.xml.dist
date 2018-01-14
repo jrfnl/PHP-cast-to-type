@@ -16,13 +16,12 @@
 	<!-- Check all files in this directory and the directories below it. -->
 	<file>.</file>
 
+	<!-- Exclude Composer vendor directory. -->
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+
 	<!-- PHP cross-version compatibility. -->
-	<config name="testVersion" value="4.0-99.0"/>
+	<config name="testVersion" value="4.0-"/>
 	<rule ref="PHPCompatibility"/>
-	<rule ref="PHPCompatibility.PHP.NewClasses.exceptionFound">
-		<!-- Fine in PHP 5+. -->
-		<exclude-pattern>/class\.cast-to-type\.php</exclude-pattern>
-	</rule>
 
 	<!-- Code style. -->
 	<rule ref="WordPress">
@@ -40,16 +39,15 @@
 		<!-- WP specific sniffs which should be ignored. -->
 		<exclude name="WordPress.VIP"/>
 		<exclude name="WordPress.XSS.EscapeOutput"/>
+
+		<!-- Allow the method names to be the same across classes and compatible with both PHP 4 and 5+. -->
+		<exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
 	</rule>
 
 	<rule ref="WordPress.Files.FileName">
 		<properties>
 			<property name="strict_class_file_names" value="false"/>
 		</properties>
-	</rule>
-
-	<rule ref="Squiz.Scope.MethodScope">
-		<exclude-pattern>/class\.cast-to-type-php4\.php</exclude-pattern>
 	</rule>
 
 </ruleset>
