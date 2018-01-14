@@ -16,6 +16,9 @@
 	<!-- Check all files in this directory and the directories below it. -->
 	<file>.</file>
 
+	<!-- Exclude Composer vendor directory. -->
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+
 	<!-- PHP cross-version compatibility. -->
 	<config name="testVersion" value="4.0-99.0"/>
 	<rule ref="PHPCompatibility"/>

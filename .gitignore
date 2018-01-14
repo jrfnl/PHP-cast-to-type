@@ -1,1 +1,3 @@
 phpcs.xml
+/vendor/
+composer.lock

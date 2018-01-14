@@ -18,6 +18,12 @@
     "require": {
         "php": ">=5.0"
     },
+    "require-dev" : {
+        "squizlabs/php_codesniffer" : "^3.2.0",
+        "wimg/php-compatibility": "^8.1.0",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.4.3",
+        "wp-coding-standards/wpcs": "^0.14.0"
+    },
     "autoload": {
         "files": ["class.cast-to-type.php"]
     }
