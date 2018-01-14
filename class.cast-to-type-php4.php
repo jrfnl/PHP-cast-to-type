@@ -19,6 +19,10 @@
  * @copyright (c) 2006-2018, Advies en zo, Meedenken en -doen <casttotype@adviesenzo.nl> All rights reserved.
  * @license   http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License.
  * @since     1.0
+ *
+ * Selective PHPCS exclusion: this file is only supposed to be loaded in PHP 4.
+ * In PHP 4, scope modifiers did not exist yet.
+ * @phpcs:disable Squiz.Scope.MethodScope
  */
 
 if ( ! class_exists( 'CastToType' ) ) {
