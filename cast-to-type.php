@@ -9,7 +9,7 @@
  * File:      cast-to-type.php
  *
  * @package   CastToType
- * @version   2.0
+ * @version   2.0.1
  * @link      https://github.com/jrfnl/PHP-cast-to-type.git
  * @author    Juliette Reinders Folmer, {@link http://www.adviesenzo.nl/ Advies en zo} -
  *            <casttotype@adviesenzo.nl>

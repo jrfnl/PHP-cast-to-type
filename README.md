@@ -78,6 +78,10 @@ composer require jrfnl/PHP-cast-to-type
 
 ### Changelog:
 
+#### 2.0.1 (Jan 2018)
+* Bugfix for PHP cross-version compatibility. This affected use of this class on PHP < 5.2.7.
+* General housekeeping.
+
 #### 2.0 (Jun 2015)
 * Updated the object casting to be in line with the way this is done in PHP7 for cross-version compatibility.
   Previously arrays with numerical keys cast to objects would be added to the object as a property called `array` with the value being the complete array. Now - as in PHP7 - each numerical array key will be cast to an individual property.
