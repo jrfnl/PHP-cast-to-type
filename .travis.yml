@@ -23,7 +23,7 @@ php:
   - 5.5
   - 5.6
   - 7.0
-  - 7.2
+  - 7.1
   - nightly
 
 # Add some more builds which need additional settings.
@@ -37,8 +37,8 @@ matrix:
     # aliased to 5.3.29
     - php: '5.3'
       dist: precise
-    # aliased to a recent 7.1.x version
-    - php: '7.1'
+    # aliased to a recent 7.2.x version
+    - php: '7.2'
       env: SNIFF=1
 
   allow_failures:

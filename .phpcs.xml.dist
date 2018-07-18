@@ -13,6 +13,12 @@
 	<!-- Only check PHP files. -->
 	<arg name="extensions" value="php"/>
 
+	<!-- Strip the filepaths down to the relevant bit. -->
+	<arg name="basepath" value="./"/>
+
+	<!-- Check 8 files simultanously. -->
+	<arg name="parallel" value="8"/>
+
 	<!-- Check all files in this directory and the directories below it. -->
 	<file>.</file>
 
@@ -37,8 +43,9 @@
 		<exclude name="WordPress.PHP.YodaConditions"/>
 
 		<!-- WP specific sniffs which should be ignored. -->
+		<exclude name="WordPress.Security"/>
 		<exclude name="WordPress.VIP"/>
-		<exclude name="WordPress.XSS.EscapeOutput"/>
+		<exclude name="WordPress.WP"/>
 
 		<!-- Allow the method names to be the same across classes and compatible with both PHP 4 and 5+. -->
 		<exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
@@ -48,6 +55,11 @@
 		<properties>
 			<property name="strict_class_file_names" value="false"/>
 		</properties>
+	</rule>
+
+	<!-- PHP 4 -->
+	<rule ref="Squiz.Classes.SelfMemberReference.NotUsed">
+		<exclude-pattern>*/class.cast-to-type-php4\.php$</exclude-pattern>
 	</rule>
 
 </ruleset>
