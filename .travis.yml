@@ -6,6 +6,13 @@ sudo: false
 
 dist: trusty
 
+cache:
+  directories:
+    # Cache directory for older Composer versions.
+    - $HOME/.composer/cache/files
+    # Cache directory for more recent Composer versions.
+    - $HOME/.cache/composer/files
+
 # Declare project language.
 # @link http://about.travis-ci.org/docs/user/languages/php/
 language: php
@@ -16,9 +23,8 @@ php:
   - 5.5
   - 5.6
   - 7.0
-  - 7.2
+  - 7.1
   - nightly
-  - hhvm
 
 # Add some more builds which need additional settings.
 matrix:
@@ -31,13 +37,12 @@ matrix:
     # aliased to 5.3.29
     - php: '5.3'
       dist: precise
-    # aliased to a recent 7.1.x version
-    - php: '7.1'
+    # aliased to a recent 7.2.x version
+    - php: '7.2'
       env: SNIFF=1
 
   allow_failures:
     - php: 'nightly'
-    - php: 'hhvm'
 
 
 # Use this to prepare your build for testing.
@@ -49,15 +54,8 @@ before_script:
     - export PHPCS_DIR=/tmp/phpcs
     - export WPCS_DIR=/tmp/wpcs
     - export PHPCOMPAT_DIR=/tmp/phpcompatibility
-    # Install CodeSniffer for WordPress Coding Standards checks.
-    - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR; fi
-    # Install WordPress Coding Standards.
-    - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git $WPCS_DIR; fi
-    # Install PHPCompatibility Sniffs.
-    - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/wimg/PHPCompatibility.git $PHPCOMPAT_DIR; fi
-    # Set install path for PHPCS sniffs.
-    # @link https://github.com/squizlabs/PHP_CodeSniffer/blob/4237c2fc98cc838730b76ee9cee316f99286a2a7/CodeSniffer.php#L1941
-    - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs --config-set installed_paths $WPCS_DIR,$PHPCOMPAT_DIR; fi
+    # Install PHP_CodeSniffer and external standards.
+    - if [[ "$SNIFF" == "1" ]]; then composer install; fi
     # After CodeSniffer install you should refresh your path.
     - if [[ "$SNIFF" == "1" ]]; then phpenv rehash; fi
 
@@ -68,7 +66,7 @@ script:
     # Search for PHP syntax errors.
     - find -L . -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
     # Check Coding Standards.
-    - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs --runtime-set ignore_warnings_on_exit 1; fi
+    - if [[ "$SNIFF" == "1" ]]; then vendor/bin/phpcs --runtime-set ignore_warnings_on_exit 1; fi
     # Validate the composer.json file.
     # @link https://getcomposer.org/doc/03-cli.md#validate
     - if [[ $TRAVIS_PHP_VERSION != "5.2" ]]; then composer validate --no-check-all; fi
