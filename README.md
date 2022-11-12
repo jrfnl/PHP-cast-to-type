@@ -56,7 +56,7 @@ All methods are static.
 Param | Type | Description
 ----- | ---- | -----------
 `$value` | mixed | Value to cast.
-`$type`  | string | Type to cast to. Valid values: `'bool'`, `'boolean'`, `'int'`, `'integer'`, `'float'`, `'num'`, `'string'`, `'array'`, `'object'`.
+`$type`  | string | Type to cast to. Valid values: `'bool'`, `'boolean'`, `'int'`, `'integer'`, `'float'`, `'double'`, `'num'`, `'string'`, `'array'`, `'object'`.
 `$array2null` | bool | Optional. Whether to return `null` for arrays when casting to bool, int, float, num or string. If false, the individual values held in the array will recursively be cast to the specified type. Defaults to `true`.
 `$allow_empty` | bool | Optional. Whether to allow empty strings, empty arrays, empty objects. If false, `null` will be returned instead of the empty string/array/object. Defaults to `true`.
 
@@ -77,12 +77,19 @@ This package requires the PHP native [`ctype`](https://www.php.net/book.ctype) e
 
 If you are using PHP5+ (as you should), PHP-Cast-to_Type is also available as a [package](https://packagist.org/packages/jrfnl/PHP-cast-to-type) installable via Composer:
 
-~~~sh
+```sh
 composer require jrfnl/PHP-cast-to-type
-~~~
+```
 
 
 ### Changelog:
+
+#### 2.1.0 (Nov 2022)
+* Allow for `double` as an alias for `float` in the `CastToType::cast()` method. Thanks [@nsrosenqvist] for the contribution.
+* Bug fix: string `ON` not recognized as truthy when casting to boolean.
+* The requirement for the `ctype` extension has been made explicit.
+* The primary branch has been renamed from `master` to `main`.
+* General housekeeping.
 
 #### 2.0.1 (Jan 2018)
 * Bugfix for PHP cross-version compatibility. This affected use of this class on PHP < 5.2.7.
@@ -95,6 +102,8 @@ composer require jrfnl/PHP-cast-to-type
 * Fixed a bug in the object casting which would return `null` for non-objects cast to objects in PHP <= 5.1.
 * Fixed a bug in the object casting where an empty string would not return `null` while `$allow_empty` was set to `false`.
 
-
 #### 1.0 (2006 / Sept 2013)
 * Initial release.
+
+
+[@nsrosenqvist]: https://github.com/nsrosenqvist
