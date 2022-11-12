@@ -2,7 +2,7 @@
 /**
  * CastToType.
  *
- * Class to easily cast variables to a specific type.
+ * Class to consistently cast variables to a specific type.
  *
  * Features:
  * - Optionally allow/disallow empty strings/arrays.

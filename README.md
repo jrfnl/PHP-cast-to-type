@@ -5,7 +5,7 @@
 PHP-cast-to-type
 ================
 
-PHP Class to easily and consistently cast variables to a specific type.
+PHP Class to consistently cast variables to a specific type.
 
 Returns either the value in the specified type or `null`.
 
