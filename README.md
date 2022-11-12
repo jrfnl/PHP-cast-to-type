@@ -63,6 +63,12 @@ Param | Type | Description
 
 ### Installation
 
+#### Requirements
+
+This package requires the PHP native [`ctype`](https://www.php.net/book.ctype) extension.
+
+#### Stand-alone
+
 1. Head to the [Releases](https://github.com/jrfnl/PHP-cast-to-type/releases) page and download the latest release zip.
 2. Extract the files and place them somewhere in your project hierarchy.
 3. Require the class loader using `require_once '/path/to/cast-to-type.php';`.
