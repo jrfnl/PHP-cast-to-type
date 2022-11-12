@@ -13,15 +13,15 @@
  *
  * @package   CastToType
  * @version   2.0.1
- * @link      https://github.com/jrfnl/PHP-cast-to-type.git
+ * @link      https://github.com/jrfnl/PHP-cast-to-type
  * @author    Juliette Reinders Folmer, {@link http://www.adviesenzo.nl/ Advies en zo} -
  *            <casttotype@adviesenzo.nl>
- * @copyright (c) 2006-2018, Advies en zo, Meedenken en -doen <casttotype@adviesenzo.nl> All rights reserved.
+ * @copyright (c) 2006-2022, Advies en zo, Meedenken en -doen <casttotype@adviesenzo.nl> All rights reserved.
  * @license   http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License.
  * @since     1.0
  *
  * Selective PHPCS exclusion: this file is only supposed to be loaded in PHP 5+.
- * @phpcs:disable PHPCompatibility.PHP.NewClasses.exceptionFound
+ * @phpcs:disable PHPCompatibility.Classes.NewClasses.exceptionFound
  */
 
 if ( ! class_exists( 'CastToType' ) ) {
@@ -31,10 +31,10 @@ if ( ! class_exists( 'CastToType' ) ) {
 	 *
 	 * @package   CastToType
 	 * @version   2.0.1
-	 * @link      https://github.com/jrfnl/PHP-cast-to-type.git
+	 * @link      https://github.com/jrfnl/PHP-cast-to-type
 	 * @author    Juliette Reinders Folmer, {@link http://www.adviesenzo.nl/ Advies en zo} -
 	 *            <casttotype@adviesenzo.nl>
-	 * @copyright (c) 2006-2018, Advies en zo, Meedenken en -doen <casttotype@adviesenzo.nl>
+	 * @copyright (c) 2006-2022, Advies en zo, Meedenken en -doen <casttotype@adviesenzo.nl>
 	 *            All rights reserved.
 	 * @license   http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License.
 	 */
@@ -351,6 +351,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 				return null;
 			}
 			catch ( Exception $e ) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
 				trigger_error( $e->getMessage(), E_USER_WARNING );
 			}
 		}

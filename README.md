@@ -1,6 +1,6 @@
-[![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/jrfnl/PHP-cheat-sheet-extended/master/LICENSE.md)
-[![Build Status](https://travis-ci.org/jrfnl/PHP-cast-to-type.svg?branch=master)](https://travis-ci.org/jrfnl/PHP-cast-to-type)
-[![Build Status](https://scrutinizer-ci.com/g/jrfnl/PHP-cast-to-type/badges/build.png?b=master)](https://scrutinizer-ci.com/g/jrfnl/PHP-cast-to-type/build-status/master)
+[![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/jrfnl/PHP-cast-to-type/main/LICENSE.md)
+[![CS](https://github.com/jrfnl/PHP-cast-to-type/actions/workflows/cs.yml/badge.svg)](https://github.com/jrfnl/PHP-cast-to-type/actions/workflows/cs.yml)
+[![Lint](https://github.com/jrfnl/PHP-cast-to-type/actions/workflows/lint.yml/badge.svg)](https://github.com/jrfnl/PHP-cast-to-type/actions/workflows/lint.yml)
 
 PHP-cast-to-type
 ================
