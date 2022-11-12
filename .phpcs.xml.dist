@@ -44,11 +44,13 @@
 
 		<!-- WP specific sniffs which should be ignored. -->
 		<exclude name="WordPress.Security"/>
-		<exclude name="WordPress.VIP"/>
 		<exclude name="WordPress.WP"/>
 
 		<!-- Allow the method names to be the same across classes and compatible with both PHP 4 and 5+. -->
 		<exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
+
+		<!-- This is deliberate to support both PHP 4 and 5. -->
+		<exclude name="Generic.Classes.DuplicateClassName.Found"/>
 	</rule>
 
 	<rule ref="WordPress.Files.FileName">

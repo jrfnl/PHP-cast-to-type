@@ -21,7 +21,7 @@
  * @since     1.0
  *
  * Selective PHPCS exclusion: this file is only supposed to be loaded in PHP 5+.
- * @phpcs:disable PHPCompatibility.PHP.NewClasses.exceptionFound
+ * @phpcs:disable PHPCompatibility.Classes.NewClasses.exceptionFound
  */
 
 if ( ! class_exists( 'CastToType' ) ) {
@@ -351,6 +351,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 				return null;
 			}
 			catch ( Exception $e ) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
 				trigger_error( $e->getMessage(), E_USER_WARNING );
 			}
 		}
