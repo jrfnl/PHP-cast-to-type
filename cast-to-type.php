@@ -1,6 +1,6 @@
 <?php
 /**
- * CastToType - a class to easily cast variables to a specific type.
+ * CastToType - a class to consistently cast variables to a specific type.
  *
  * Features:
  * - Optionally allow/disallow empty strings/arrays.
@@ -9,7 +9,7 @@
  * File:      cast-to-type.php
  *
  * @package   CastToType
- * @version   2.0.1
+ * @version   2.1.0
  * @link      https://github.com/jrfnl/PHP-cast-to-type
  * @author    Juliette Reinders Folmer, {@link http://www.adviesenzo.nl/ Advies en zo} -
  *            <casttotype@adviesenzo.nl>
