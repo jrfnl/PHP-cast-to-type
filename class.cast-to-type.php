@@ -142,7 +142,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 				'true', 'True', 'TRUE',
 				'y', 'Y',
 				'yes', 'Yes', 'YES',
-				'on', 'On', 'On',
+				'on', 'On', 'ON',
 
 			);
 			$false = array(
