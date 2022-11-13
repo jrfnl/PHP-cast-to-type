@@ -72,6 +72,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 				'boolean' => 1,
 				'int'     => 1,
 				'integer' => 1,
+				'double'  => 1,
 				'float'   => 1,
 				'num'     => 1,
 				'string'  => 1,
@@ -93,6 +94,7 @@ if ( ! class_exists( 'CastToType' ) ) {
 				case 'int':
 					return self::_int( $value, $array2null, $allow_empty );
 
+				case 'double':
 				case 'float':
 					return self::_float( $value, $array2null, $allow_empty );
 
