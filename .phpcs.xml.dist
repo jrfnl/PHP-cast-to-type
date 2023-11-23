@@ -34,7 +34,7 @@
 		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing.ArrayItemNoNewLine"/>
 
 		<!-- Kind of defies the point of this class. -->
-		<exclude name="WordPress.PHP.StrictComparisons"/>
+		<exclude name="Universal.Operators.StrictComparisons"/>
 
 		<!-- else on new line is perfectly fine -->
 		<exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace"/>
@@ -51,6 +51,12 @@
 
 		<!-- This is deliberate to support both PHP 4 and 5. -->
 		<exclude name="Generic.Classes.DuplicateClassName.Found"/>
+
+		<!-- This library still supports PHP < 5.3. -->
+		<exclude name="Modernize.FunctionCalls.Dirname"/>
+
+		<!-- Renaming the files is for later. -->
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
 	</rule>
 
 	<rule ref="WordPress.Files.FileName">
