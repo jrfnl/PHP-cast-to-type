@@ -11,6 +11,10 @@
  *
  * File:      class.cast-to-type-php4.php
  *
+ * Selective PHPCS exclusion: this file is only supposed to be loaded in PHP 4.
+ * In PHP 4, scope modifiers did not exist yet.
+ * @phpcs:disable Squiz.Scope.MethodScope
+ *
  * @package   CastToType
  * @version   2.1.0
  * @link      https://github.com/jrfnl/PHP-cast-to-type
@@ -19,10 +23,6 @@
  * @copyright (c) 2006-2022, Advies en zo, Meedenken en -doen <casttotype@adviesenzo.nl> All rights reserved.
  * @license   http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License.
  * @since     1.0
- *
- * Selective PHPCS exclusion: this file is only supposed to be loaded in PHP 4.
- * In PHP 4, scope modifiers did not exist yet.
- * @phpcs:disable Squiz.Scope.MethodScope
  */
 
 if ( ! class_exists( 'CastToType' ) ) {
