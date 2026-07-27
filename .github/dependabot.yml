@@ -8,7 +8,14 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "cron"
+      cronjob: "10 22 5 */2 *" # At 22:10, every 5th day of every second month.
     open-pull-requests-limit: 5
     commit-message:
       prefix: "GH Actions:"
+    groups:
+      action-runners:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
